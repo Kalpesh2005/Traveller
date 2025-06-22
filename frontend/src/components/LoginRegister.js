@@ -1,152 +1,3 @@
-// import React, { useState } from 'react';
-// import { useNavigate, useLocation } from 'react-router-dom';
-// import axios from 'axios';
-// import './LoginRegister.css';
-
-// const LoginRegister = () => {
-//   const navigate = useNavigate();
-//   const location = useLocation();
-//   const { packageName, packagePrice } = location.state || {}; // Get package details if available
-
-//   const [isRegister, setIsRegister] = useState(false);
-//   const [username, setUsername] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [confirmPassword, setConfirmPassword] = useState('');
-//   const [passwordError, setPasswordError] = useState('');
-
-//   const toggleForm = () => {
-//     setIsRegister(!isRegister);
-//     setPasswordError('');
-//   };
-
-//   const validatePassword = (password) => {
-//     return password.length >= 6; // Only checks if password is at least 6 characters long
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (!validatePassword(password)) {
-//       setPasswordError('Password must be at least 6 characters long.');
-//       return;
-//     }
-
-//     if (isRegister && password !== confirmPassword) {
-//       alert('Passwords do not match!');
-//       return;
-//     }
-
-//     const url = isRegister
-//       ? 'http://localhost:5000/api/register'
-//       : 'http://localhost:5000/api/login';
-
-//     const data = {
-//       email,
-//       password,
-//       ...(isRegister && { username }),
-//     };
-
-//     try {
-//       const response = await axios.post(url, data);
-
-//       if (response.data.token) {
-//         localStorage.setItem('userToken', JSON.stringify(response.data.token));
-//         alert(isRegister ? 'Registration successful!' : 'Login successful!');
-
-//         // Redirect to BookNow if package details are available
-//         if (packageName && packagePrice) {
-//           navigate('/book-now', { state: { packageName, packagePrice } });
-//         } else {
-//           navigate('/shop'); // Default redirect after login
-//         }
-//       } else {
-//         alert(response.data.message || 'Invalid credentials');
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//       alert('An error occurred. Please try again.');
-//     }
-//   };
-
-//   const handleLogout = () => {
-//     localStorage.removeItem('userToken'); // Remove user token from local storage
-//     alert('You have been logged out.');
-//     navigate('/explore'); // Redirect to explore page after logout
-//   };
-
-//   return (
-//     <div className="container">
-//       <h1>{isRegister ? 'Create an Account' : 'Login to Your Account'}</h1>
-//       <form onSubmit={handleSubmit} className="form">
-//         {isRegister && (
-//           <div className="input-group">
-//             <label htmlFor="username">Username</label>
-//             <input
-//               type="text"
-//               id="username"
-//               value={username}
-//               onChange={(e) => setUsername(e.target.value)}
-//               required
-//             />
-//           </div>
-//         )}
-//         <div className="input-group">
-//           <label htmlFor="email">Email</label>
-//           <input
-//             type="email"
-//             id="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <div className="input-group">
-//           <label htmlFor="password">Password</label>
-//           <input
-//             type="password"
-//             id="password"
-//             value={password}
-//             onChange={(e) => {
-//               setPassword(e.target.value);
-//               setPasswordError('');
-//             }}
-//             required
-//           />
-//           {passwordError && <p className="error-message">{passwordError}</p>}
-//         </div>
-//         {isRegister && (
-//           <div className="input-group">
-//             <label htmlFor="confirmPassword">Confirm Password</label>
-//             <input
-//               type="password"
-//               id="confirmPassword"
-//               value={confirmPassword}
-//               onChange={(e) => setConfirmPassword(e.target.value)}
-//               required
-//             />
-//           </div>
-//         )}
-//         <button type="submit" className="submit-btn">
-//           {isRegister ? 'Register' : 'Login'}
-//         </button>
-//       </form>
-//       <div className="toggle-link">
-//         <span onClick={toggleForm}>
-//           {isRegister ? 'Already have an account? Login' : 'Need an account? Register'}
-//         </span>
-//       </div>
-
-//       <button className="logout-btn" onClick={handleLogout}>
-//         Logout
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default LoginRegister;
-
-
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -187,8 +38,8 @@ const LoginRegister = () => {
     }
 
     const url = isRegister
-      ? `${process.env.REACT_APP_API_URL}/api/register`
-      : `${process.env.REACT_APP_API_URL}/api/login`;
+      ? 'https://traveller-backend.onrender.com/api/register'
+      : 'https://traveller-backend.onrender.com/api/login';
 
     const data = {
       email,
@@ -197,7 +48,11 @@ const LoginRegister = () => {
     };
 
     try {
-      const response = await axios.post(url, data);
+      const response = await axios.post(url, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
       if (response.data.token) {
         localStorage.setItem('userToken', JSON.stringify(response.data.token));
@@ -212,8 +67,8 @@ const LoginRegister = () => {
         alert(response.data.message || 'Invalid credentials');
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred. Please try again.');
+      console.error('Error:', error.response?.data || error.message);
+      alert(error.response?.data?.message || 'An error occurred. Please try again.');
     }
   };
 
@@ -239,6 +94,7 @@ const LoginRegister = () => {
             />
           </div>
         )}
+
         <div className="input-group">
           <label htmlFor="email">Email</label>
           <input
@@ -249,6 +105,7 @@ const LoginRegister = () => {
             required
           />
         </div>
+
         <div className="input-group">
           <label htmlFor="password">Password</label>
           <input
@@ -263,6 +120,7 @@ const LoginRegister = () => {
           />
           {passwordError && <p className="error-message">{passwordError}</p>}
         </div>
+
         {isRegister && (
           <div className="input-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
@@ -275,10 +133,12 @@ const LoginRegister = () => {
             />
           </div>
         )}
+
         <button type="submit" className="submit-btn">
           {isRegister ? 'Register' : 'Login'}
         </button>
       </form>
+
       <div className="toggle-link">
         <span onClick={toggleForm}>
           {isRegister ? 'Already have an account? Login' : 'Need an account? Register'}
