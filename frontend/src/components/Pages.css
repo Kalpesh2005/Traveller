@@ -1,0 +1,129 @@
+/* Set html and body to full height */
+html, body {
+  height: 100%; /* Ensures the body takes up the full height of the viewport */
+  margin: 0; /* Removes default margins */
+  font-family: Arial, sans-serif; /* Set your font */
+}
+
+/* Pages Container */
+.pages-container {
+  max-width: 1700px; /* Maximum width for the container */
+  margin: 0 auto; /* Center the container */
+  background-image: url('../assets/images/travel.jpg'); /* Set the background image */
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the background image */
+  background-attachment: fixed; /* Fixed background during scrolling */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+  min-height: 150vh; /* Ensures the container takes up the full viewport height */
+  color: #fff; /* Makes text readable on top of the background image */
+  padding: 20px; /* Padding around the container */
+  position: relative; /* Establishes positioning context for pseudo-elements */
+}
+
+/* Section Styles */
+section {
+  margin-bottom: 40px; /* Space between sections */
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background for readability */
+  border-radius: 10px; /* Rounded corners for sections */
+  padding: 20px; /* Padding inside sections */
+}
+
+/* Heading Styles */
+h2 {
+  font-size: 2.5rem; /* Font size for section headings */
+  margin-bottom: 20px; /* Space below headings */
+  text-align: center; /* Center align headings */
+  color: #ff6f61; /* Eye-catching color for headings */
+}
+
+/* List Styles */
+.offers-list,
+.services-list,
+.testimonials-list,
+.faq-list {
+  display: flex; /* Flexbox for layout */
+  flex-wrap: wrap; /* Allows wrapping of items */
+  gap: 20px; /* Space between items */
+  justify-content: center; /* Center align items */
+}
+
+/* Card Styles */
+.offer,
+.service,
+.testimonial,
+.faq {
+  background-color: #ffffff; /* White background for cards */
+  padding: 20px; /* Padding inside cards */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+  width: 100%; /* Full width for responsiveness */
+  max-width: 350px; /* Maximum width for cards */
+  text-align: center; /* Center align text inside cards */
+}
+
+/* Hover Effects */
+.offer:hover,
+.service:hover,
+.testimonial:hover,
+.faq:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Card Title Styles */
+.offer h3,
+.service h3,
+.testimonial h4,
+.faq h4 {
+  font-size: 1.75rem; /* Font size for titles */
+  margin-bottom: 10px; /* Space below titles */
+  color: #222; /* Dark color for titles */
+}
+
+/* Card Description Styles */
+.offer p,
+.service p,
+.testimonial p,
+.faq p {
+  font-size: 1rem; /* Font size for descriptions */
+  margin-bottom: 10px; /* Space below descriptions */
+  color: #666; /* Gray color for descriptions */
+}
+
+/* Testimonial Specific Styles */
+.testimonial h4 {
+  font-size: 1.25rem; /* Font size for testimonial authors */
+  font-weight: bold; /* Bold text for emphasis */
+  color: #333; /* Darker color for authors */
+}
+
+/* FAQ Specific Styles */
+.faq h4 {
+  font-size: 1.5rem; /* Font size for FAQ questions */
+  margin-bottom: 8px; /* Space below questions */
+  color: #444; /* Darker color for questions */
+}
+
+.faq p {
+  font-size: 1rem; /* Font size for FAQ answers */
+  color: #555; /* Medium gray color for answers */
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+  .offers-list,
+  .services-list,
+  .testimonials-list,
+  .faq-list {
+      flex-direction: column; /* Stacks items vertically on small screens */
+      align-items: center; /* Center align items */
+  }
+
+  .offer,
+  .service,
+  .testimonial,
+  .faq {
+      max-width: 100%; /* Full width on small screens */
+  }
+}

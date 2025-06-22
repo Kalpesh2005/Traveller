@@ -1,0 +1,66 @@
+.App {
+  text-align: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+.menu-icon {
+  display: none; /* Hide the menu icon for the top navbar layout */
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+nav {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Center align the nav items */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Align items horizontally */
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px; /* Adjust font size for top navbar */
+  padding: 10px;
+  display: inline-block; /* Ensure the link has a block-like appearance */
+}
+
+nav .book-now {
+  background-color: #ff6f61;
+  border: none;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 20px; /* Space between menu items and the button */
+}
+
+h2 {
+  margin-top: 20px;
+  font-size: 28px;
+}
+
+p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+

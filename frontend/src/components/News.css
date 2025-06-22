@@ -1,0 +1,90 @@
+/* News Container */
+.news-container {
+  padding: 20px;
+  max-width: 1700px;
+  margin: 0 auto;
+  background-image: url('../assets/images/travel.jpg'); /* Background image */
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the background image */
+  background-attachment: fixed; /* Fixed background during scrolling */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+  min-height: 100vh; /* Ensures the container takes up the full viewport height */
+  color: white; 
+}
+
+/* Header Styles */
+.news-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.news-header h1 {
+  font-size: 3rem; /* Increased header size */
+  margin-bottom: 10px;
+  text-transform: uppercase; /* Makes the header stand out */
+  letter-spacing: 1px; /* Adds space between letters */
+}
+
+.news-header p {
+  font-size: 1.25rem; /* Increased size for better readability */
+}
+
+/* News List Styles */
+.news-list {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping of news items */
+  gap: 20px; /* Space between items */
+  justify-content: center; /* Center-aligns items */
+}
+
+/* News Item Styles */
+.news-item {
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background for contrast */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  width: 100%;
+  max-width: 350px; /* Maximum width for each news item */
+  text-align: center;
+  margin-bottom: 40px; /* Add margin-bottom to push the card down slightly */
+}
+
+
+/* Hover Effect for News Item */
+.news-item:hover {
+  transform: translateY(-5px); /* Lift effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Darker shadow on hover */
+}
+
+/* Title Styles */
+.news-item h3 {
+  font-size: 1.75rem; /* Size for news titles */
+  margin-bottom: 10px;
+  color: #ff6f61; /* Eye-catching color for titles */
+}
+
+/* Date Styles */
+.news-item .news-date {
+  font-size: 1rem;
+  color: #ddd; /* Lighter color for date for better readability */
+  margin-bottom: 10px;
+}
+
+/* Description Styles */
+.news-item p {
+  font-size: 1rem;
+  color: #eee; /* Light gray for better readability */
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .news-list {
+      flex-direction: column; /* Stacks items vertically on small screens */
+      align-items: center; /* Center aligns items */
+  }
+  
+  .news-item {
+      max-width: 100%; /* Full width on small screens */
+  }
+}

@@ -1,0 +1,249 @@
+/* Shop Container */
+.shop-container {
+  background-image: url('../assets/images/travel.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+/* Heading */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+}
+
+/* Products Grid */
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Product Card */
+.product-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #333;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 15px;
+}
+
+/* Product Info */
+.product-name {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.product-description {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Quantity Controls */
+.quantity-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.quantity-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease;
+  width: 30px;
+}
+
+.quantity-btn:hover {
+  background-color: #0056b3;
+}
+
+.quantity-input {
+  width: 50px; /* Increased width for better visibility */
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 5px;
+  font-size: 1rem; /* Increased font size */
+}
+
+/* Button Group for Add to Cart, Buy, and Wishlist */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* Unified Button Styles */
+.add-to-cart-btn,
+.buy-now-btn,
+.wishlist-btn,
+.remove-btn,
+.add-btn {
+  background-color: #dc3545; /* Red color for all buttons */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease;
+  margin: 0 5px;
+}
+
+.add-to-cart-btn:hover,
+.buy-now-btn:hover,
+.wishlist-btn:hover,
+.remove-btn:hover,
+.add-btn:hover {
+  background-color: red; /* Darker red on hover */
+}
+
+/* Cart and Wishlist Container */
+.cart-container,
+.wishlist-container {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+
+.cart-container h2,
+.wishlist-container h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Cart and Wishlist Items List */
+.cart-container ul,
+.wishlist-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-container li,
+.wishlist-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cart-container li h4,
+.wishlist-container li h4 {
+  font-size: 1.25rem;
+  color: #333;
+}
+
+/* Cart and Wishlist Buttons in One Row */
+.cart-buttons,
+.wishlist-buttons {
+  display: flex;
+  justify-content: space-between; /* Align buttons with space between them */
+  margin-top: 10px; /* Space above buttons */
+}
+
+.cart-buttons .add-btn,
+.wishlist-buttons .add-btn {
+  background-color: #dc3545; /* Red color */
+  color: white;
+  border: none;
+  padding: 5px 8px; /* Reduced padding for smaller size */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.75rem; /* Smaller font size */
+  transition: background-color 0.3s ease;
+  margin: 0 5px; /* Space between buttons */
+}
+/* Reduced Button Size for Cart and Wishlist */
+.cart-buttons .remove-btn,
+.cart-buttons .add-btn,
+.wishlist-buttons .remove-btn,
+.wishlist-buttons .add-btn {
+  background-color: #dc3545; /* Red color */
+  color: white;
+  border: none;
+  padding: 5px 8px; /* Reduced padding for smaller size */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.75rem; /* Smaller font size */
+  transition: background-color 0.3s ease;
+  margin: 0 5px; /* Space between buttons */
+}
+
+.cart-buttons .remove-btn:hover,
+.cart-buttons .add-btn:hover,
+.wishlist-buttons .remove-btn:hover,
+.wishlist-buttons .add-btn:hover {
+  background-color: red; /* Darker red on hover */
+}
+
+/* Notification Style */
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.25rem;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Buy Now Button Style */
+.buy-now {
+  background-color: #28a745; /* Green color for the Buy button */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease;
+  margin-left: 5px; /* Space between buttons */
+}
+
+.buy-now:hover {
+  background-color: #218838; /* Darker green on hover */
+}

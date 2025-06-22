@@ -1,0 +1,105 @@
+/* Global Styles */
+* {
+  box-sizing: border-box; /* Ensures padding and border are included in width/height */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif; /* Base font */
+  background-color: #f5f5f5; /* Light background color */
+  -webkit-font-smoothing: antialiased; /* Smooth font rendering */
+  -moz-osx-font-smoothing: grayscale; /* Grayscale rendering for Firefox */
+}
+
+/* About Container */
+.about-container {
+   /* Centering the container */
+  background-image: url('../assets/images/travel.jpg'); /* Background image */
+  background-size: cover; /* Covers the entire container */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents repetition */
+  color: #fff; /* Text color */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow effect for depth */
+}
+
+/* Header Styles */
+.about-header {
+  text-align: center; /* Center align header */
+  margin-bottom: 40px; /* Space below header */
+}
+
+.about-header h1 {
+  font-size: 2.5rem; /* Font size for main heading */
+  margin-bottom: 10px; /* Space below heading */
+  letter-spacing: 2px; /* Spacing between letters */
+  color:  #ff6f61; /* White color for the heading */
+}
+
+/* Content Styles */
+.about-content {
+  line-height: 1.6; /* Increases line height for readability */
+  padding: 20px; /* Padding around the content */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for content */
+  border-radius: 10px; /* Rounded corners for content area */
+}
+
+/* Section Headers */
+.about-content h2 {
+  font-size: 28px; /* Font size for section headers */
+  margin-top: 30px; /* Space above section headers */
+  border-bottom: 2px solid #ff6f61; /* Bottom border for section headers */
+  padding-bottom: 10px; /* Space below section headers */
+}
+
+/* Paragraph Styles */
+.about-content p {
+  font-size: 18px; /* Font size for paragraphs */
+  margin-bottom: 20px; /* Space below paragraphs */
+}
+
+/* Team Member Styles */
+.team-members {
+  display: flex; /* Flexbox for layout */
+  flex-wrap: wrap; /* Wraps team members */
+  gap: 20px; /* Space between team members */
+  justify-content: center; /* Center align team members */
+}
+
+.team-member {
+  flex: 1 1 calc(30% - 20px); /* Flexible width for team members */
+  max-width: calc(30% - 20px); /* Maximum width */
+  text-align: center; /* Center align text */
+  background-color: rgba(20, 19, 19, 0.9); /* Light background for team member boxes */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px; /* Padding inside member boxes */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+}
+
+.team-member img {
+  border-radius: 50%; /* Circular images */
+  width: 150px; /* Fixed width for images */
+  height: 150px; /* Fixed height for images */
+  object-fit: cover; /* Ensures images cover the circle */
+  margin-bottom: 10px; /* Space below images */
+}
+
+/* Team Member Name Styles */
+.team-member h3 {
+  font-size: 22px; /* Font size for names */
+  margin: 10px 0; /* Space around names */
+}
+
+/* Team Member Description Styles */
+.team-member p {
+  font-size: 16px; /* Font size for descriptions */
+  color: white; /* Darker text color for contrast */
+}
+
+/* Footer Styles */
+.about-footer {
+  text-align: center; /* Center align footer */
+  margin-top: 40px; /* Space above footer */
+  font-size: 18px; /* Font size for footer text */
+  color: #f0e68c; /* Light yellow color for footer text */
+}

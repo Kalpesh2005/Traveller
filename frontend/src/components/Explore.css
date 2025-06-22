@@ -1,0 +1,72 @@
+.explore-container {
+  padding: 20px;
+  text-align: center;
+  background-image: url('../assets/images/travel.jpg'); /* Set the background image here */
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the background image */
+  background-attachment: fixed; /* Makes the background image fixed during scrolling */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+  min-height: 100vh; /* Ensures the container takes up the full viewport height */
+  color: #fff; 
+}
+
+.locations-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between cards */
+  justify-content: center; /* Center the cards horizontally */
+  margin-top: 20px;
+}
+
+.location-card {
+  background-color:black; /* Slightly transparent background for text readability */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%; /* Full width by default */
+  max-width: calc(25% - 20px); /* Maximum width of each card to fit 4 per row */
+  transition: transform 0.3s ease;
+}
+
+.location-card:hover {
+  transform: scale(1.05);
+}
+
+.location-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.location-info {
+  padding: 15px;
+}
+
+.location-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.location-info p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 1200px) {
+  .location-card {
+    max-width: calc(33.33% - 20px); /* 3 cards per row for medium screens */
+  }
+}
+
+@media (max-width: 800px) {
+  .location-card {
+    max-width: calc(50% - 20px); /* 2 cards per row for smaller screens */
+  }
+}
+
+@media (max-width: 500px) {
+  .location-card {
+    max-width: calc(100% - 20px); /* 1 card per row for very small screens */
+  }
+}

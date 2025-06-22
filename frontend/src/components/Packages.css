@@ -1,0 +1,129 @@
+/* Container for the whole packages section */
+.packages-container {
+  padding: 20px;
+  max-width: 1700px;
+  margin: 0 auto;
+  background-image: url('../assets/images/travel.jpg'); /* Background image for the page */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  color: #fff; /* Text color */
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  color: #fff; /* Make the title white */
+}
+
+h2 {
+  text-align: center;
+  color: #ff6347; /* Orange color for subtitles */
+  margin-bottom: 30px;
+}
+
+/* Styling for the list of packages */
+.packages-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px; /* Space between cards */
+  justify-content: center; /* Center the cards horizontally */
+}
+
+/* Styling for each package card */
+.package-card {
+  background-color: rgba(0, 0, 0, 0.7); /* Slight transparency for better background visibility */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Adds shadow for 3D effect */
+  width: calc(25% - 20px); /* 4 cards per row */
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #fff; /* Ensure text is white on the dark background */
+}
+
+.package-card:hover {
+  transform: scale(1.05); /* Slightly enlarges the card on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
+}
+
+/* Title of each package */
+.package-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+/* Styling for the package details list */
+.package-details {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0; /* Add space above and below the details section */
+}
+
+/* Space between individual detail lines */
+.package-details li {
+  margin-bottom: 15px; /* Space between each detail line */
+}
+
+/* Highlighted title for each detail (Duration, Food, Residence, etc.) */
+.detail-title {
+  font-weight: bold;
+  color: #ff6347; /* Highlighted color for the title */
+  padding-right: 2px;
+}
+
+/* Content styling for each detail */
+.detail-content {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+/* List of tour plans inside each package */
+.tour-plans {
+  list-style-type: circle;
+  margin: 10px 0 15px 20px; /* Space around the tour plans */
+}
+
+.tour-plans li {
+  margin-bottom: 10px; /* Space between each tour plan item */
+}
+
+/* Styling for the Book Now button */
+.book-now-btn {
+  background-color: #ff6347;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.book-now-btn:hover {
+  background-color: #ff4500; /* Darker color on hover */
+}
+
+/* Responsive design adjustments for medium screens */
+@media (max-width: 1200px) {
+  .package-card {
+    width: calc(33.33% - 20px); /* 3 cards per row for medium screens */
+  }
+}
+
+/* Responsive design adjustments for small screens */
+@media (max-width: 800px) {
+  .package-card {
+    width: calc(50% - 20px); /* 2 cards per row for smaller screens */
+  }
+}
+
+/* Responsive design adjustments for very small screens */
+@media (max-width: 500px) {
+  .package-card {
+    width: calc(100% - 20px); /* 1 card per row for very small screens */
+  }
+}
