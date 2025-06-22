@@ -14,15 +14,14 @@ const LoginRegister = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [loading, setLoading] = useState(false); // optional loader
 
   const toggleForm = () => {
     setIsRegister(!isRegister);
     setPasswordError('');
   };
 
-  const validatePassword = (password) => {
-    return password.length >= 6;
-  };
+  const validatePassword = (password) => password.length >= 6;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,10 +47,12 @@ const LoginRegister = () => {
     };
 
     try {
+      setLoading(true); // start loading
       const response = await axios.post(url, data, {
         headers: {
           'Content-Type': 'application/json',
         },
+        withCredentials: true, // 🔥 important for CORS issues
       });
 
       if (response.data.token) {
@@ -67,8 +68,10 @@ const LoginRegister = () => {
         alert(response.data.message || 'Invalid credentials');
       }
     } catch (error) {
-      console.error('Error:', error.response?.data || error.message);
+      console.error('Error:', error);
       alert(error.response?.data?.message || 'An error occurred. Please try again.');
+    } finally {
+      setLoading(false); // stop loading
     }
   };
 
@@ -134,8 +137,8 @@ const LoginRegister = () => {
           </div>
         )}
 
-        <button type="submit" className="submit-btn">
-          {isRegister ? 'Register' : 'Login'}
+        <button type="submit" className="submit-btn" disabled={loading}>
+          {loading ? 'Processing...' : isRegister ? 'Register' : 'Login'}
         </button>
       </form>
 
