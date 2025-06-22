@@ -15,6 +15,7 @@ const port = process.env.PORT || 5000;
 
 // ✅ CORS Configuration — allow multiple frontend URLs
 const allowedOrigins = [
+  'https://traveller-self.vercel.app',
   'https://traveller-mei150qr9-kalpesh-patils-projects-5e82ed60.vercel.app',
   'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app'
 ];
