@@ -7,8 +7,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
-
-
 // -------------------- Load Env --------------------
 dotenv.config();
 
@@ -22,7 +20,7 @@ const allowedOrigins = [
   'https://traveller-self.vercel.app'
 ];
 
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -30,9 +28,14 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight OPTIONS requests for all routes
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 
@@ -96,11 +99,13 @@ app.get('/', (req, res) => {
 // --- Register ---
 app.post('/api/register', async (req, res) => {
   const { username, email, password } = req.body;
-  if (!username || !email || !password) return res.status(400).json({ message: 'All fields are required' });
+  if (!username || !email || !password)
+    return res.status(400).json({ message: 'All fields are required' });
 
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: 'User already exists' });
+    if (existingUser)
+      return res.status(400).json({ message: 'User already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ username, email, password: hashedPassword });
@@ -114,7 +119,8 @@ app.post('/api/register', async (req, res) => {
 // --- Login ---
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
+  if (!email || !password)
+    return res.status(400).json({ message: 'Email and password are required' });
 
   try {
     const user = await User.findOne({ email });
@@ -133,7 +139,8 @@ app.post('/api/login', async (req, res) => {
 // --- Middleware: Verify Token ---
 const verifyToken = (req, res, next) => {
   const token = req.header('Authorization');
-  if (!token) return res.status(401).json({ message: 'Access denied, no token provided' });
+  if (!token)
+    return res.status(401).json({ message: 'Access denied, no token provided' });
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -179,7 +186,8 @@ app.post('/api/orders/buy', async (req, res) => {
 // --- Contact ---
 app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
-  if (!name || !email || !message) return res.status(400).json({ message: 'Missing required contact fields' });
+  if (!name || !email || !message)
+    return res.status(400).json({ message: 'Missing required contact fields' });
 
   try {
     const contact = new Contact({ name, email, message });
