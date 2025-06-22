@@ -7,6 +7,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
+
+
 // -------------------- Load Env --------------------
 dotenv.config();
 
@@ -16,9 +18,8 @@ const port = process.env.PORT || 5000;
 
 // -------------------- CORS Setup --------------------
 const allowedOrigins = [
-  'https://traveller-self.vercel.app',
-  'https://traveller-mei150qr9-kalpesh-patils-projects-5e82ed60.vercel.app',
-  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app'
+  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app',
+  'https://traveller-self.vercel.app'
 ];
 
 app.use(cors({
@@ -33,7 +34,7 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 // -------------------- MongoDB Connection --------------------
 const MONGO_URI = process.env.MONGO_URI || 'your_fallback_mongo_url_here';
