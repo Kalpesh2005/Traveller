@@ -18,7 +18,7 @@ const port = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:3000',
   'https://traveller-self.vercel.app',
-  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app',
+  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app'
 ];
 
 const corsOptions = {
@@ -26,7 +26,7 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      console.warn(`❌ Blocked by CORS: ${origin}`);
+      console.warn(❌ Blocked by CORS: ${origin});
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -43,26 +43,18 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 // -------------------- MongoDB Connection --------------------
-const MONGO_URI = process.env.MONGO_URI;
-
-if (!MONGO_URI) {
-  console.error("❌ Missing MONGO_URI in environment variables.");
-  process.exit(1);
-}
+const MONGO_URI = process.env.MONGO_URI || 'your_fallback_mongo_url_here';
 
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
   .then(() => console.log('✅ MongoDB Connected'))
-  .catch((err) => {
-    console.error('❌ MongoDB connection error:', err);
-    process.exit(1);
-  });
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
 
 // -------------------- Request Logger --------------------
 app.use((req, res, next) => {
-  console.log(`🔁 ${req.method} ${req.path} from ${req.headers.origin}`);
+  console.log(🔁 ${req.method} ${req.path} from ${req.headers.origin});
   next();
 });
 
@@ -139,6 +131,7 @@ app.post('/api/register', async (req, res) => {
 // --- Login ---
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
+
   if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
 
   try {
@@ -148,7 +141,7 @@ app.post('/api/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'default_secret', { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token, message: 'Login successful' });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -161,7 +154,7 @@ const verifyToken = (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'Access denied, no token provided' });
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'default_secret');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {
@@ -190,15 +183,8 @@ app.post('/api/bookings', async (req, res) => {
 app.post('/api/orders/buy', async (req, res) => {
   const { product, quantity, totalPrice } = req.body;
 
-  if (
-    !product ||
-    typeof product.id !== 'number' ||
-    typeof product.name !== 'string' ||
-    typeof product.price !== 'number' ||
-    typeof quantity !== 'number' ||
-    typeof totalPrice !== 'number'
-  ) {
-    return res.status(400).json({ message: 'Invalid or missing order fields' });
+  if (!product || !quantity || !totalPrice) {
+    return res.status(400).json({ message: 'Missing required order fields' });
   }
 
   try {
@@ -229,5 +215,5 @@ app.post('/api/contact', async (req, res) => {
 
 // -------------------- Start Server --------------------
 app.listen(port, '0.0.0.0', () => {
-  console.log(`🚀 Server running on http://0.0.0.0:${port}`);
-});
+  console.log(🚀 Server running on http://0.0.0.0:${port});
+}); 
