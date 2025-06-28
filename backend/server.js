@@ -17,8 +17,8 @@ const port = process.env.PORT || 5000;
 // -------------------- CORS Setup --------------------
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app',
-  'https://traveller-self.vercel.app'
+  'https://traveller-self.vercel.app',
+  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app'
 ];
 
 const corsOptions = {
@@ -31,44 +31,34 @@ const corsOptions = {
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Handle preflight globally
+app.options('*', cors(corsOptions)); // Global preflight handling
 
-// 🔧 Fallback handler for unmatched OPTIONS requests
-app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    return res.sendStatus(204);
-  }
-  next();
-});
+// -------------------- Middleware --------------------
+app.use(express.json());
+app.use(bodyParser.json());
 
-// -------------------- Request Logger (Debug) --------------------
+// -------------------- MongoDB Connection --------------------
+const MONGO_URI = process.env.MONGO_URI || 'your_fallback_mongo_url_here';
+
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('✅ MongoDB Connected'))
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
+
+// -------------------- Request Logger --------------------
 app.use((req, res, next) => {
   console.log(`🔁 ${req.method} ${req.path} from ${req.headers.origin}`);
   next();
 });
 
-// -------------------- Middleware --------------------
-app.use(express.json());
-app.use(bodyParser.json()); // Optional
-
-// -------------------- MongoDB Connection --------------------
-const MONGO_URI = process.env.MONGO_URI || 'your_fallback_mongo_url_here';
-
-mongoose
-  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('✅ MongoDB Connected'))
-  .catch((err) => console.error('❌ MongoDB connection error:', err));
-
-// -------------------- Schemas --------------------
+// -------------------- Schemas & Models --------------------
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
@@ -106,7 +96,6 @@ const contactSchema = new mongoose.Schema({
   submittedAt: { type: Date, default: Date.now }
 });
 
-// -------------------- Models --------------------
 const User = mongoose.model('User', userSchema);
 const Booking = mongoose.model('Booking', bookingSchema);
 const Order = mongoose.model('Order', orderSchema);
@@ -157,7 +146,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// --- Middleware: Verify Token ---
+// --- Verify Token Middleware ---
 const verifyToken = (req, res, next) => {
   const token = req.header('Authorization');
   if (!token) return res.status(401).json({ message: 'Access denied, no token provided' });
