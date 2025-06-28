@@ -36,11 +36,7 @@ function BookNow() {
     const basePrice = parseInt(packagePrice.replace('Rs.', '').replace(',', '')) || 0;
     const peopleCount = parseInt(formData.people) || 1;
     let totalPrice = basePrice * peopleCount;
-
-    if (peopleCount >= 4) {
-      totalPrice *= 0.75; // 25% discount
-    }
-
+    if (peopleCount >= 4) totalPrice *= 0.75;
     setCalculatedPrice(`Rs.${totalPrice.toLocaleString()}`);
   }, [formData.people, packagePrice]);
 
@@ -61,11 +57,17 @@ function BookNow() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
     if (!validateForm()) return;
 
+    const baseUrl = process.env.REACT_APP_API_URL?.trim();
+    if (!baseUrl) {
+      setError('API base URL is not configured.');
+      return;
+    }
+
     try {
-      const baseUrl = process.env.REACT_APP_API_URL?.trim();
+      console.log('📡 Sending booking request to:', `${baseUrl}/api/bookings`);
+
       const response = await fetch(`${baseUrl}/api/bookings`, {
         method: 'POST',
         headers: {
@@ -86,6 +88,7 @@ function BookNow() {
         throw new Error(errorData.message || 'Booking failed. Try again.');
       }
     } catch (error) {
+      console.error('❌ Booking error:', error);
       setError(error.message);
     }
   };
