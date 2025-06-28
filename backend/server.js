@@ -36,9 +36,19 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle preflight globally
 
-// Handle preflight for all routes (especially important for Vercel/axios/POST)
-app.options('*', cors(corsOptions));
+// 🔧 Fallback handler for unmatched OPTIONS requests
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    return res.sendStatus(204);
+  }
+  next();
+});
 
 // -------------------- Request Logger (Debug) --------------------
 app.use((req, res, next) => {
