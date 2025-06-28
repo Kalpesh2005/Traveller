@@ -37,9 +37,9 @@ const LoginRegister = () => {
     }
 
     const url = isRegister
-      ? 'https://traveller-backend.onrender.com/api/register'
-      : 'https://traveller-backend.onrender.com/api/login';
-
+  ? 'https://traveller-17ng.onrender.com/api/register'
+  : 'https://traveller-17ng.onrender.com/api/login';
+    
     const data = {
       email,
       password,
