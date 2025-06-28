@@ -18,13 +18,12 @@ function BookNow() {
   const [calculatedPrice, setCalculatedPrice] = useState(packagePrice);
   const [formErrors, setFormErrors] = useState({});
 
-  // Check if user is authenticated
   const isAuthenticated = localStorage.getItem('userToken');
 
   useEffect(() => {
     if (!isAuthenticated) {
       alert('Please log in or register to book a package.');
-      navigate('/loginregister', { state: { packageName, packagePrice } }); // Redirect to login with package details
+      navigate('/loginregister', { state: { packageName, packagePrice } });
     }
   }, [isAuthenticated, navigate, packageName, packagePrice]);
 
@@ -33,24 +32,20 @@ function BookNow() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Calculate price based on number of people
   useEffect(() => {
     const basePrice = parseInt(packagePrice.replace('Rs.', '').replace(',', '')) || 0;
     const peopleCount = parseInt(formData.people) || 1;
     let totalPrice = basePrice * peopleCount;
 
-    // Apply discount if 4 or more people
     if (peopleCount >= 4) {
-      totalPrice *= 0.75;
+      totalPrice *= 0.75; // 25% discount
     }
 
     setCalculatedPrice(`Rs.${totalPrice.toLocaleString()}`);
   }, [formData.people, packagePrice]);
 
-  // Validate form fields
   const validateForm = () => {
     const errors = {};
-
     if (!formData.name.trim()) errors.name = 'Name is required';
     if (!formData.email) errors.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = 'Invalid email format';
@@ -70,7 +65,8 @@ function BookNow() {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch('http://localhost:5000/api/bookings', {
+      const baseUrl = process.env.REACT_APP_API_URL?.trim();
+      const response = await fetch(`${baseUrl}/api/bookings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +80,7 @@ function BookNow() {
 
       if (response.ok) {
         setSubmitted(true);
-        setTimeout(() => navigate('/explore'), 500); // Redirect to Explore page after success
+        setTimeout(() => navigate('/explore'), 1000);
       } else {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Booking failed. Try again.');
@@ -105,7 +101,9 @@ function BookNow() {
       ) : (
         <>
           <h1>Book Your Trip to {packageName}</h1>
-          <p>Package Price (for {formData.people} {formData.people === '1' ? 'Person' : 'People'}): {calculatedPrice}</p>
+          <p>
+            Package Price (for {formData.people} {formData.people === '1' ? 'Person' : 'People'}): {calculatedPrice}
+          </p>
           <form className="booking-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Full Name</label>
