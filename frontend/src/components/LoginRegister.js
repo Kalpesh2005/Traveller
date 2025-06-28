@@ -36,13 +36,10 @@ const LoginRegister = () => {
       return;
     }
 
-const baseUrl = process.env.REACT_APP_API_URL;
+    const baseUrl = process.env.REACT_APP_API_URL?.trim(); // ensure trimming
+    const endpoint = isRegister ? 'register' : 'login';
+    const url = `${baseUrl}/api/${endpoint}`;
 
-const url = isRegister
-  ? `${baseUrl}/api/register`
-  : `${baseUrl}/api/login`;
-
-    
     const data = {
       email,
       password,
@@ -54,8 +51,8 @@ const url = isRegister
       const response = await axios.post(url, data, {
         headers: {
           'Content-Type': 'application/json',
-        }
-        // ❌ Removed withCredentials: true
+        },
+        // Do not include withCredentials unless you are setting cookies via CORS
       });
 
       if (response.data.token) {
