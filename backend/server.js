@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
-// -------------------- Load Environment Variables --------------------
+// -------------------- Load Env --------------------
 dotenv.config();
 
 // -------------------- Express App --------------------
@@ -36,15 +36,17 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Handle preflight requests
+app.options('*', cors(corsOptions)); // Preflight
 
-// -------------------- Middleware --------------------
-app.use(express.json());
-app.use(bodyParser.json()); // Optional
+// -------------------- Request Logger (Optional Debug) --------------------
 app.use((req, res, next) => {
   console.log(`🔁 ${req.method} ${req.path} from ${req.headers.origin}`);
   next();
 });
+
+// -------------------- Middleware --------------------
+app.use(express.json());
+app.use(bodyParser.json()); // Optional
 
 // -------------------- MongoDB Connection --------------------
 const MONGO_URI = process.env.MONGO_URI || 'your_fallback_mongo_url_here';
@@ -54,7 +56,7 @@ mongoose
   .then(() => console.log('✅ MongoDB Connected'))
   .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// -------------------- Schemas and Models --------------------
+// -------------------- Schemas --------------------
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
@@ -92,6 +94,7 @@ const contactSchema = new mongoose.Schema({
   submittedAt: { type: Date, default: Date.now }
 });
 
+// -------------------- Models --------------------
 const User = mongoose.model('User', userSchema);
 const Booking = mongoose.model('Booking', bookingSchema);
 const Order = mongoose.model('Order', orderSchema);
@@ -106,13 +109,11 @@ app.get('/', (req, res) => {
 app.post('/api/register', async (req, res) => {
   console.log('📥 /api/register hit from:', req.headers.origin);
   const { username, email, password } = req.body;
-  if (!username || !email || !password)
-    return res.status(400).json({ message: 'All fields are required' });
+  if (!username || !email || !password) return res.status(400).json({ message: 'All fields are required' });
 
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser)
-      return res.status(400).json({ message: 'User already exists' });
+    if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ username, email, password: hashedPassword });
@@ -126,20 +127,16 @@ app.post('/api/register', async (req, res) => {
 // --- Login ---
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password)
-    return res.status(400).json({ message: 'Email and password are required' });
+  if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
 
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: 'User not found' });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res.status(400).json({ message: 'Invalid credentials' });
+    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '1h'
-    });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token, message: 'Login successful' });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -149,8 +146,7 @@ app.post('/api/login', async (req, res) => {
 // --- Middleware: Verify Token ---
 const verifyToken = (req, res, next) => {
   const token = req.header('Authorization');
-  if (!token)
-    return res.status(401).json({ message: 'Access denied, no token provided' });
+  if (!token) return res.status(401).json({ message: 'Access denied, no token provided' });
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -196,8 +192,7 @@ app.post('/api/orders/buy', async (req, res) => {
 // --- Contact ---
 app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
-  if (!name || !email || !message)
-    return res.status(400).json({ message: 'Missing required contact fields' });
+  if (!name || !email || !message) return res.status(400).json({ message: 'Missing required contact fields' });
 
   try {
     const contact = new Contact({ name, email, message });
