@@ -37,8 +37,13 @@ const LoginRegister = () => {
     }
 
     const baseUrl = process.env.REACT_APP_API_URL?.trim();
-const url = isRegister ? `${baseUrl}/api/register` : `${baseUrl}/api/login`;
+    if (!baseUrl) {
+      alert('Backend API URL not configured. Please check your .env');
+      return;
+    }
 
+    const url = isRegister ? `${baseUrl}/api/register` : `${baseUrl}/api/login`;
+    console.log('📡 Sending POST to:', url); // 🔍 Debug log
 
     const data = {
       email,
@@ -49,16 +54,12 @@ const url = isRegister ? `${baseUrl}/api/register` : `${baseUrl}/api/login`;
     try {
       setLoading(true);
       const response = await axios.post(url, data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // Do not include withCredentials unless you are setting cookies via CORS
+        headers: { 'Content-Type': 'application/json' }
       });
 
       if (response.data.token) {
         localStorage.setItem('userToken', JSON.stringify(response.data.token));
         alert(isRegister ? 'Registration successful!' : 'Login successful!');
-
         if (packageName && packagePrice) {
           navigate('/book-now', { state: { packageName, packagePrice } });
         } else {
@@ -68,8 +69,14 @@ const url = isRegister ? `${baseUrl}/api/register` : `${baseUrl}/api/login`;
         alert(response.data.message || 'Invalid credentials');
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert(error.response?.data?.message || 'An error occurred. Please try again.');
+      console.error('❌ Error submitting form:', error);
+      if (error.response?.status === 405) {
+        alert('⚠️ Method Not Allowed (405) - Please check your backend route and HTTP method.');
+      } else if (error.response?.status === 404) {
+        alert('⚠️ API Not Found (404) - Check your backend route.');
+      } else {
+        alert(error.response?.data?.message || 'An error occurred. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
