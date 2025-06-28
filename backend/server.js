@@ -18,7 +18,7 @@ const port = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:3000',
   'https://traveller-self.vercel.app',
-  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app'
+  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app',
 ];
 
 const corsOptions = {
@@ -26,7 +26,7 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      console.error(`❌ Blocked by CORS: ${origin}`);
+      console.warn(`❌ Blocked by CORS: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -36,7 +36,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Global preflight handling
+app.options('*', cors(corsOptions)); // Handle preflight
 
 // -------------------- Middleware --------------------
 app.use(express.json());
@@ -110,6 +110,7 @@ app.get('/', (req, res) => {
 app.post('/api/register', async (req, res) => {
   console.log('📥 /api/register hit from:', req.headers.origin);
   const { username, email, password } = req.body;
+
   if (!username || !email || !password) {
     return res.status(400).json({ message: 'All fields are required' });
   }
@@ -146,7 +147,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// --- Verify Token Middleware ---
+// --- Token Middleware (not used, but included if needed) ---
 const verifyToken = (req, res, next) => {
   const token = req.header('Authorization');
   if (!token) return res.status(401).json({ message: 'Access denied, no token provided' });
@@ -163,6 +164,7 @@ const verifyToken = (req, res, next) => {
 // --- Bookings ---
 app.post('/api/bookings', async (req, res) => {
   const { packageName, packagePrice, name, email, phone, date, people } = req.body;
+
   if (!packageName || !packagePrice || !name || !email || !phone || !date || !people) {
     return res.status(400).json({ message: 'Missing required booking fields' });
   }
@@ -210,5 +212,5 @@ app.post('/api/contact', async (req, res) => {
 
 // -------------------- Start Server --------------------
 app.listen(port, '0.0.0.0', () => {
-  console.log(`🚀 Server running on port ${port}`);
+  console.log(`🚀 Server running on http://0.0.0.0:${port}`);
 });
