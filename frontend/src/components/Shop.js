@@ -11,9 +11,6 @@ import handSanitizer from '../assets/images/handSanitizer.jpg';
 import umbrella from '../assets/images/umbrella.jpeg';
 import earplugs from '../assets/images/earplugs.jpg';
 
-const API_BASE_URL = 'https://traveller-backend.onrender.com';
-
-
 const products = [
   { id: 1, name: 'Travel Backpack', description: 'A durable and spacious backpack for all your travel needs.', price: 700, image: travelBackpack },
   { id: 2, name: 'Portable Charger', description: 'Keep your devices charged on the go.', price: 1000, image: portableCharger },
@@ -94,7 +91,7 @@ function Shop() {
     } else {
       setCart([...cart, { ...product, quantity }]);
     }
-    showNotification(`${product.name} added to cart!`);
+    showNotification(${product.name} added to cart!);
   };
 
   const increaseCartQuantity = (id) => {
@@ -115,7 +112,8 @@ function Shop() {
     const totalPrice = product.price * quantity;
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/orders/buy`, {
+      const baseUrl = process.env.REACT_APP_API_URL?.trim();
+      const response = await fetch(${baseUrl}/api/orders/buy, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -130,21 +128,21 @@ function Shop() {
       const data = await response.json();
 
       if (response.ok) {
-        showNotification(`You have bought ${product.name} successfully!`);
+        showNotification(You have bought ${product.name} successfully!);
       } else {
-        showNotification(data?.message || 'Error purchasing product.');
+        showNotification(data.message || 'Error purchasing product.');
       }
     } catch (error) {
-      showNotification('⚠️ Error connecting to server.');
+      showNotification('Error purchasing product.');
     }
   };
 
   const addToWishlist = (product) => {
     if (wishlist.some((item) => item.id === product.id)) {
-      showNotification(`${product.name} is already in your wishlist.`);
+      showNotification(${product.name} is already in your wishlist.);
     } else {
       setWishlist([...wishlist, product]);
-      showNotification(`${product.name} added to wishlist.`);
+      showNotification(${product.name} added to wishlist.);
     }
   };
 
@@ -220,5 +218,3 @@ function Shop() {
     </div>
   );
 }
-
-export default Shop;
