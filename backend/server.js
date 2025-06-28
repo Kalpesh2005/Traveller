@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
-// -------------------- Load Env --------------------
+// -------------------- Load Environment Variables --------------------
 dotenv.config();
 
 // -------------------- Express App --------------------
@@ -16,8 +16,9 @@ const port = process.env.PORT || 5000;
 
 // -------------------- CORS Setup --------------------
 const allowedOrigins = [
-  'https://traveller-self.vercel.app',
-  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app'
+  'http://localhost:3000',
+  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app',
+  'https://traveller-self.vercel.app'
 ];
 
 const corsOptions = {
@@ -25,18 +26,25 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.error(`❌ Blocked by CORS: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // 🔥 REQUIRED to fix CORS preflight
+app.options('*', cors(corsOptions)); // Handle preflight requests
 
+// -------------------- Middleware --------------------
 app.use(express.json());
+app.use(bodyParser.json()); // Optional
+app.use((req, res, next) => {
+  console.log(`🔁 ${req.method} ${req.path} from ${req.headers.origin}`);
+  next();
+});
 
 // -------------------- MongoDB Connection --------------------
 const MONGO_URI = process.env.MONGO_URI || 'your_fallback_mongo_url_here';
@@ -46,7 +54,7 @@ mongoose
   .then(() => console.log('✅ MongoDB Connected'))
   .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// -------------------- Schemas --------------------
+// -------------------- Schemas and Models --------------------
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
@@ -84,7 +92,6 @@ const contactSchema = new mongoose.Schema({
   submittedAt: { type: Date, default: Date.now }
 });
 
-// -------------------- Models --------------------
 const User = mongoose.model('User', userSchema);
 const Booking = mongoose.model('Booking', bookingSchema);
 const Order = mongoose.model('Order', orderSchema);
@@ -97,6 +104,7 @@ app.get('/', (req, res) => {
 
 // --- Register ---
 app.post('/api/register', async (req, res) => {
+  console.log('📥 /api/register hit from:', req.headers.origin);
   const { username, email, password } = req.body;
   if (!username || !email || !password)
     return res.status(400).json({ message: 'All fields are required' });
@@ -126,9 +134,12 @@ app.post('/api/login', async (req, res) => {
     if (!user) return res.status(400).json({ message: 'User not found' });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+    if (!isMatch)
+      return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '1h'
+    });
     res.json({ token, message: 'Login successful' });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -198,6 +209,6 @@ app.post('/api/contact', async (req, res) => {
 });
 
 // -------------------- Start Server --------------------
-app.listen(port, () => {
-  console.log(`🚀 Server running on http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`🚀 Server running on port ${port}`);
 });
