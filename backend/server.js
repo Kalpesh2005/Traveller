@@ -18,7 +18,7 @@ const port = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:3000',
   'https://traveller-self.vercel.app',
-  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app',
+  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app'
 ];
 
 const corsOptions = {
@@ -131,6 +131,7 @@ app.post('/api/register', async (req, res) => {
 // --- Login ---
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
+
   if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
 
   try {
@@ -147,7 +148,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// --- Token Middleware (not used, but included if needed) ---
+// --- Token Middleware ---
 const verifyToken = (req, res, next) => {
   const token = req.header('Authorization');
   if (!token) return res.status(401).json({ message: 'Access denied, no token provided' });
@@ -181,6 +182,7 @@ app.post('/api/bookings', async (req, res) => {
 // --- Orders ---
 app.post('/api/orders/buy', async (req, res) => {
   const { product, quantity, totalPrice } = req.body;
+
   if (!product || !quantity || !totalPrice) {
     return res.status(400).json({ message: 'Missing required order fields' });
   }
@@ -197,6 +199,7 @@ app.post('/api/orders/buy', async (req, res) => {
 // --- Contact ---
 app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
+
   if (!name || !email || !message) {
     return res.status(400).json({ message: 'Missing required contact fields' });
   }
