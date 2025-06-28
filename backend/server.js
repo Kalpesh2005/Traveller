@@ -36,9 +36,11 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Preflight
 
-// -------------------- Request Logger (Optional Debug) --------------------
+// Handle preflight for all routes (especially important for Vercel/axios/POST)
+app.options('*', cors(corsOptions));
+
+// -------------------- Request Logger (Debug) --------------------
 app.use((req, res, next) => {
   console.log(`🔁 ${req.method} ${req.path} from ${req.headers.origin}`);
   next();
@@ -109,7 +111,9 @@ app.get('/', (req, res) => {
 app.post('/api/register', async (req, res) => {
   console.log('📥 /api/register hit from:', req.headers.origin);
   const { username, email, password } = req.body;
-  if (!username || !email || !password) return res.status(400).json({ message: 'All fields are required' });
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
 
   try {
     const existingUser = await User.findOne({ email });
@@ -192,7 +196,9 @@ app.post('/api/orders/buy', async (req, res) => {
 // --- Contact ---
 app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
-  if (!name || !email || !message) return res.status(400).json({ message: 'Missing required contact fields' });
+  if (!name || !email || !message) {
+    return res.status(400).json({ message: 'Missing required contact fields' });
+  }
 
   try {
     const contact = new Contact({ name, email, message });
