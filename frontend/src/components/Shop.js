@@ -26,7 +26,7 @@ const products = [
 
 function Shop() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(localStorage.getItem('userToken')); // Check if user is logged in
+  const [user, setUser] = useState(localStorage.getItem('userToken'));
   const [cart, setCart] = useState(user ? JSON.parse(localStorage.getItem('cart')) || [] : []);
   const [wishlist, setWishlist] = useState(user ? JSON.parse(localStorage.getItem('wishlist')) || [] : []);
   const [notification, setNotification] = useState('');
@@ -38,7 +38,6 @@ function Shop() {
     return initialQuantities;
   });
 
-  // Effect to update local storage whenever cart or wishlist changes
   useEffect(() => {
     if (user) {
       localStorage.setItem('cart', JSON.stringify(cart));
@@ -48,25 +47,24 @@ function Shop() {
 
   const showNotification = (message) => {
     setNotification(message);
-    setTimeout(() => setNotification(''), 3000); // Clear message after 3 seconds
+    setTimeout(() => setNotification(''), 3000);
   };
 
   const handleQuantityChange = (productId, change) => {
     setQuantities((prev) => ({
       ...prev,
-      [productId]: Math.max(1, (prev[productId] || 1) + change), // Ensure quantity is at least 1
+      [productId]: Math.max(1, (prev[productId] || 1) + change),
     }));
   };
 
   const handleRedirectToLogin = (product, actionType) => {
     if (!user) {
-      // If user is not logged in, show the confirmation message
       if (window.confirm("You need to log in to proceed. Would you like to log in now?")) {
-        navigate('/loginregister'); // Redirect to login page after clicking OK
+        navigate('/loginregister');
       }
       return;
     }
-    
+
     switch (actionType) {
       case 'addToCart':
         addToCart(product);
@@ -110,16 +108,17 @@ function Shop() {
   const decreaseCartQuantity = (productId) => {
     const updatedCart = cart.map((item) =>
       item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
-    ).filter(item => item.quantity > 0); // Remove the item if quantity becomes 0
+    ).filter(item => item.quantity > 0);
     setCart(updatedCart);
   };
 
   const buyNow = async (product) => {
     const productQuantity = quantities[product.id] || 1;
     const totalPrice = product.price * productQuantity;
+    const baseUrl = process.env.REACT_APP_API_URL?.trim();
 
     try {
-      const response = await fetch('http://localhost:5000/api/orders/buy', {
+      const response = await fetch(`${baseUrl}/api/orders/buy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -136,7 +135,7 @@ function Shop() {
       if (response.ok) {
         showNotification(`You have bought ${product.name} successfully!`);
       } else {
-        showNotification('Error purchasing product.');
+        showNotification(data.message || 'Error purchasing product.');
       }
     } catch (error) {
       showNotification('Error purchasing product.');
