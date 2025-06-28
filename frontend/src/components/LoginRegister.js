@@ -14,7 +14,7 @@ const LoginRegister = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [loading, setLoading] = useState(false); // optional loader
+  const [loading, setLoading] = useState(false);
 
   const toggleForm = () => {
     setIsRegister(!isRegister);
@@ -47,12 +47,12 @@ const LoginRegister = () => {
     };
 
     try {
-      setLoading(true); // start loading
+      setLoading(true);
       const response = await axios.post(url, data, {
         headers: {
           'Content-Type': 'application/json',
-        },
-        withCredentials: true, // 🔥 important for CORS issues
+        }
+        // ❌ Removed withCredentials: true
       });
 
       if (response.data.token) {
@@ -71,7 +71,7 @@ const LoginRegister = () => {
       console.error('Error:', error);
       alert(error.response?.data?.message || 'An error occurred. Please try again.');
     } finally {
-      setLoading(false); // stop loading
+      setLoading(false);
     }
   };
 
