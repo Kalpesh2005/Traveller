@@ -37,8 +37,8 @@ const LoginRegister = () => {
     }
 
     const url = isRegister
-  ? 'https://traveller-17ng.onrender.com/api/register'
-  : 'https://traveller-17ng.onrender.com/api/login';
+  ? `${process.env.REACT_APP_API_URL}/api/register`
+  : `${process.env.REACT_APP_API_URL}/api/login`;
     
     const data = {
       email,
