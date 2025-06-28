@@ -36,9 +36,12 @@ const LoginRegister = () => {
       return;
     }
 
-    const url = isRegister
-  ? `${process.env.REACT_APP_API_URL}/api/register`
-  : `${process.env.REACT_APP_API_URL}/api/login`;
+const baseUrl = process.env.REACT_APP_API_URL;
+
+const url = isRegister
+  ? `${baseUrl}/api/register`
+  : `${baseUrl}/api/login`;
+
     
     const data = {
       email,
