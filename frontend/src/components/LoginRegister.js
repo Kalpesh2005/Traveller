@@ -36,9 +36,9 @@ const LoginRegister = () => {
       return;
     }
 
-    const baseUrl = process.env.REACT_APP_API_URL?.trim(); // ensure trimming
-    const endpoint = isRegister ? 'register' : 'login';
-    const url = `${baseUrl}/api/${endpoint}`;
+    const baseUrl = process.env.REACT_APP_API_URL?.trim();
+const url = isRegister ? `${baseUrl}/api/register` : `${baseUrl}/api/login`;
+
 
     const data = {
       email,
