@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Shop.css';
 import { useNavigate } from 'react-router-dom';
 
+// Import images
 import travelBackpack from '../assets/images/travel-backpack.jpg';
 import portableCharger from '../assets/images/portable-charger.jpg';
 import travelPillow from '../assets/images/travel-pillow.jpg';
@@ -11,6 +12,7 @@ import handSanitizer from '../assets/images/handSanitizer.jpg';
 import umbrella from '../assets/images/umbrella.jpeg';
 import earplugs from '../assets/images/earplugs.jpg';
 
+// Sample products data
 const products = [
   { id: 1, name: 'Travel Backpack', description: 'A durable and spacious backpack for all your travel needs.', price: 700, image: travelBackpack },
   { id: 2, name: 'Portable Charger', description: 'Keep your devices charged on the go.', price: 1000, image: portableCharger },
@@ -79,49 +81,51 @@ function Shop() {
   };
 
   const addToCart = (product) => {
-    const quantity = quantities[product.id] || 1;
-    const existing = cart.find((item) => item.id === product.id);
-
-    if (existing) {
-      setCart(cart.map((item) =>
-        item.id === product.id
-          ? { ...item, quantity: item.quantity + quantity }
-          : item
-      ));
+    const productQuantity = quantities[product.id] || 1;
+    const existingProduct = cart.find((item) => item.id === product.id);
+    if (existingProduct) {
+      setCart(
+        cart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + productQuantity }
+            : item
+        )
+      );
     } else {
-      setCart([...cart, { ...product, quantity }]);
+      setCart([...cart, { ...product, quantity: productQuantity }]);
     }
     showNotification(`${product.name} added to cart!`);
   };
 
-  const increaseCartQuantity = (id) => {
-    setCart(cart.map((item) =>
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    ));
+  const increaseCartQuantity = (productId) => {
+    setCart(
+      cart.map((item) =>
+        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
   };
 
-  const decreaseCartQuantity = (id) => {
-    const updated = cart.map((item) =>
-      item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+  const decreaseCartQuantity = (productId) => {
+    const updatedCart = cart.map((item) =>
+      item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
     ).filter(item => item.quantity > 0);
-    setCart(updated);
+    setCart(updatedCart);
   };
 
   const buyNow = async (product) => {
-    const quantity = quantities[product.id] || 1;
-    const totalPrice = product.price * quantity;
+    const productQuantity = quantities[product.id] || 1;
+    const totalPrice = product.price * productQuantity;
 
     try {
-      const baseUrl = process.env.REACT_APP_API_URL?.trim();
-      const response = await fetch(`${baseUrl}/api/orders/buy`, {
+      const response = await fetch('http://localhost:5000/api/orders/buy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           product,
-          quantity,
-          totalPrice
+          quantity: productQuantity,
+          totalPrice,
         }),
       });
 
@@ -138,21 +142,23 @@ function Shop() {
   };
 
   const addToWishlist = (product) => {
-    if (wishlist.some((item) => item.id === product.id)) {
-      showNotification(`${product.name} is already in your wishlist.`);
-    } else {
+    const isAlreadyInWishlist = wishlist.some((item) => item.id === product.id);
+    if (!isAlreadyInWishlist) {
       setWishlist([...wishlist, product]);
       showNotification(`${product.name} added to wishlist.`);
+    } else {
+      showNotification(`${product.name} is already in your wishlist.`);
     }
   };
 
-  const removeFromWishlist = (id) => {
-    setWishlist(wishlist.filter((item) => item.id !== id));
+  const removeFromWishlist = (productId) => {
+    setWishlist(wishlist.filter((item) => item.id !== productId));
     showNotification('Product removed from wishlist.');
   };
 
   return (
     <div className="shop-container">
+      <h2></h2>
       {notification && <div className="notification">{notification}</div>}
 
       <div className="products-grid">
@@ -160,20 +166,31 @@ function Shop() {
           <div key={product.id} className="product-card">
             <img src={product.image} alt={product.name} className="product-image" />
             <div className="product-info">
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <p>Rs. {product.price}</p>
+              <h3 className="product-name">{product.name}</h3>
+              <p className="product-description">{product.description}</p>
+              <p className="product-price">Rs. {product.price}</p>
 
               <div className="quantity-btn-group">
-                <button onClick={() => handleQuantityChange(product.id, -1)}>-</button>
-                <input type="number" value={quantities[product.id] || 1} readOnly />
-                <button onClick={() => handleQuantityChange(product.id, 1)}>+</button>
+                <button className="quantity-btn" onClick={() => handleQuantityChange(product.id, -1)}>-</button>
+                <input
+                  type="number"
+                  value={quantities[product.id] || 1}
+                  readOnly
+                  className="quantity-input"
+                />
+                <button className="quantity-btn" onClick={() => handleQuantityChange(product.id, 1)}>+</button>
               </div>
 
               <div className="button-group">
-                <button onClick={() => handleRedirectToLogin(product, 'addToCart')}>Add to Cart</button>
-                <button onClick={() => handleRedirectToLogin(product, 'buyNow')}>Buy Now</button>
-                <button onClick={() => handleRedirectToLogin(product, 'addToWishlist')}>Add to Wishlist</button>
+                <button onClick={() => handleRedirectToLogin(product, 'addToCart')} className="add-to-cart-btn">
+                  Add to Cart
+                </button>
+                <button onClick={() => handleRedirectToLogin(product, 'buyNow')} className="buy-now-btn">
+                  Buy Now
+                </button>
+                <button onClick={() => handleRedirectToLogin(product, 'addToWishlist')} className="wishlist-btn">
+                  Add to Wishlist
+                </button>
               </div>
             </div>
           </div>
@@ -182,14 +199,20 @@ function Shop() {
 
       <div className="wishlist-container">
         <h2>Your Wishlist</h2>
-        {wishlist.length === 0 ? <p>Your wishlist is empty.</p> : (
+        {wishlist.length === 0 ? (
+          <p>Your wishlist is empty.</p>
+        ) : (
           <ul>
             {wishlist.map((item) => (
               <li key={item.id}>
                 <h4>{item.name} - Rs. {item.price}</h4>
-                <div>
-                  <button onClick={() => handleRedirectToLogin(item, 'addToCart')}>Add to Cart</button>
-                  <button onClick={() => removeFromWishlist(item.id)}>Remove</button>
+                <div className="wishlist-buttons">
+                  <button onClick={() => handleRedirectToLogin(item, 'addToCart')} className="add-to-cart-btn">
+                    Add to Cart
+                  </button>
+                  <button className="remove-btn" onClick={() => removeFromWishlist(item.id)}>
+                    Remove
+                  </button>
                 </div>
               </li>
             ))}
@@ -199,15 +222,21 @@ function Shop() {
 
       <div className="cart-container">
         <h2>Your Cart</h2>
-        {cart.length === 0 ? <p>Your cart is empty.</p> : (
+        {cart.length === 0 ? (
+          <p>Your cart is empty.</p>
+        ) : (
           <ul>
             {cart.map((item) => (
               <li key={item.id}>
                 <h4>{item.name} - Rs. {item.price} x {item.quantity}</h4>
-                <div>
-                  <button onClick={() => decreaseCartQuantity(item.id)}>Remove</button>
-                  <button onClick={() => increaseCartQuantity(item.id)}>Add</button>
-                  <button onClick={() => buyNow(item)}>Buy Now</button>
+                <div className="cart-buttons">
+                  <button className="remove-btn" onClick={() => decreaseCartQuantity(item.id)}>
+                    Remove
+                  </button>
+                  <button className="add-btn" onClick={() => increaseCartQuantity(item.id)}>
+                    Add
+                  </button>
+                  <button className="buy-now" onClick={() => buyNow(item)}>Buy Now</button>
                 </div>
               </li>
             ))}
