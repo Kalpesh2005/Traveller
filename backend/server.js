@@ -26,7 +26,7 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      console.warn(❌ Blocked by CORS: ${origin});
+      console.warn(`❌ Blocked by CORS: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -54,7 +54,7 @@ mongoose.connect(MONGO_URI, {
 
 // -------------------- Request Logger --------------------
 app.use((req, res, next) => {
-  console.log(🔁 ${req.method} ${req.path} from ${req.headers.origin});
+  console.log(`🔁 ${req.method} ${req.path} from ${req.headers.origin}`);
   next();
 });
 
@@ -108,7 +108,7 @@ app.get('/', (req, res) => {
 
 // --- Register ---
 app.post('/api/register', async (req, res) => {
-  console.log('📥 /api/register hit from:', req.headers.origin);
+  console.log(`📥 /api/register hit from: ${req.headers.origin}`);
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
@@ -215,5 +215,5 @@ app.post('/api/contact', async (req, res) => {
 
 // -------------------- Start Server --------------------
 app.listen(port, '0.0.0.0', () => {
-  console.log(🚀 Server running on http://0.0.0.0:${port});
-}); 
+  console.log(`🚀 Server running on http://0.0.0.0:${port}`);
+});
