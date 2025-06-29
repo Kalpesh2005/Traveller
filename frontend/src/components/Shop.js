@@ -91,7 +91,7 @@ function Shop() {
     } else {
       setCart([...cart, { ...product, quantity }]);
     }
-    showNotification(${product.name} added to cart!);
+    showNotification(`${product.name} added to cart!`);
   };
 
   const increaseCartQuantity = (id) => {
@@ -113,7 +113,7 @@ function Shop() {
 
     try {
       const baseUrl = process.env.REACT_APP_API_URL?.trim();
-      const response = await fetch(${baseUrl}/api/orders/buy, {
+      const response = await fetch(`${baseUrl}/api/orders/buy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ function Shop() {
       const data = await response.json();
 
       if (response.ok) {
-        showNotification(You have bought ${product.name} successfully!);
+        showNotification(`You have bought ${product.name} successfully!`);
       } else {
         showNotification(data.message || 'Error purchasing product.');
       }
@@ -139,10 +139,10 @@ function Shop() {
 
   const addToWishlist = (product) => {
     if (wishlist.some((item) => item.id === product.id)) {
-      showNotification(${product.name} is already in your wishlist.);
+      showNotification(`${product.name} is already in your wishlist.`);
     } else {
       setWishlist([...wishlist, product]);
-      showNotification(${product.name} added to wishlist.);
+      showNotification(`${product.name} added to wishlist.`);
     }
   };
 
@@ -218,3 +218,5 @@ function Shop() {
     </div>
   );
 }
+
+export default Shop;
