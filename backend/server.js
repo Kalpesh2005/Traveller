@@ -223,7 +223,6 @@
 
 
 
-
 // -------------------- Dependencies --------------------
 const express = require('express');
 const mongoose = require('mongoose');
@@ -244,8 +243,9 @@ const port = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:3000',
   'https://traveller-self.vercel.app',
-  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app'
-];
+  'https://traveller-git-main-kalpesh-patils-projects-5e82ed60.vercel.app',
+  process.env.NGROK_URL // Add your Ngrok or public backend URL here
+].filter(Boolean); // Filter out any undefined
 
 const corsOptions = {
   origin: function (origin, callback) {
