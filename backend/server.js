@@ -43,7 +43,11 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 // -------------------- MongoDB Connection --------------------
-const MONGO_URI = process.env.MONGO_URI || 'your_fallback_mongo_url_here';
+const MONGO_URI = process.env.MONGO_URI;
+if (!MONGO_URI) {
+  console.error('❌ MONGO_URI not set in .env');
+  process.exit(1);
+}
 
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
@@ -54,7 +58,7 @@ mongoose.connect(MONGO_URI, {
 
 // -------------------- Request Logger --------------------
 app.use((req, res, next) => {
-  console.log(`🔁 ${req.method} ${req.path} from ${req.headers.origin}`);
+  console.log(`🔁 ${req.method} ${req.path} from ${req.headers.origin || 'unknown origin'}`);
   next();
 });
 
@@ -108,7 +112,6 @@ app.get('/', (req, res) => {
 
 // --- Register ---
 app.post('/api/register', async (req, res) => {
-  console.log(`📥 /api/register hit from: ${req.headers.origin}`);
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
