@@ -1,3 +1,170 @@
+// import React, { useState } from 'react';
+// import { useNavigate, useLocation } from 'react-router-dom';
+// import axios from 'axios';
+// import './LoginRegister.css';
+
+// const LoginRegister = () => {
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const { packageName, packagePrice } = location.state || {};
+
+//   const [isRegister, setIsRegister] = useState(false);
+//   const [username, setUsername] = useState('');
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [confirmPassword, setConfirmPassword] = useState('');
+//   const [passwordError, setPasswordError] = useState('');
+//   const [loading, setLoading] = useState(false);
+
+//   const toggleForm = () => {
+//     setIsRegister(!isRegister);
+//     setPasswordError('');
+//   };
+
+//   const validatePassword = (password) => password.length >= 6;
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (!validatePassword(password)) {
+//       setPasswordError('Password must be at least 6 characters long.');
+//       return;
+//     }
+
+//     if (isRegister && password !== confirmPassword) {
+//       alert('Passwords do not match!');
+//       return;
+//     }
+
+//     const baseUrl = process.env.REACT_APP_API_URL?.trim();
+//     if (!baseUrl) {
+//       alert('Backend API URL not configured. Please check your .env');
+//       return;
+//     }
+
+//     const url = isRegister ? `${baseUrl}/api/register` : `${baseUrl}/api/login`;
+//     console.log('📡 Sending POST to:', url); // 🔍 Debug log
+
+//     const data = {
+//       email,
+//       password,
+//       ...(isRegister && { username }),
+//     };
+
+//     try {
+//       setLoading(true);
+//       const response = await axios.post(url, data, {
+//         headers: { 'Content-Type': 'application/json' }
+//       });
+
+//       if (response.data.token) {
+//         localStorage.setItem('userToken', JSON.stringify(response.data.token));
+//         alert(isRegister ? 'Registration successful!' : 'Login successful!');
+//         if (packageName && packagePrice) {
+//           navigate('/book-now', { state: { packageName, packagePrice } });
+//         } else {
+//           navigate('/shop');
+//         }
+//       } else {
+//         alert(response.data.message || 'Invalid credentials');
+//       }
+//     } catch (error) {
+//       console.error('❌ Error submitting form:', error);
+//       if (error.response?.status === 405) {
+//         alert('⚠️ Method Not Allowed (405) - Please check your backend route and HTTP method.');
+//       } else if (error.response?.status === 404) {
+//         alert('⚠️ API Not Found (404) - Check your backend route.');
+//       } else {
+//         alert(error.response?.data?.message || 'An error occurred. Please try again.');
+//       }
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const handleLogout = () => {
+//     localStorage.removeItem('userToken');
+//     alert('You have been logged out.');
+//     navigate('/explore');
+//   };
+
+//   return (
+//     <div className="container">
+//       <h1>{isRegister ? 'Create an Account' : 'Login to Your Account'}</h1>
+//       <form onSubmit={handleSubmit} className="form">
+//         {isRegister && (
+//           <div className="input-group">
+//             <label htmlFor="username">Username</label>
+//             <input
+//               type="text"
+//               id="username"
+//               value={username}
+//               onChange={(e) => setUsername(e.target.value)}
+//               required
+//             />
+//           </div>
+//         )}
+
+//         <div className="input-group">
+//           <label htmlFor="email">Email</label>
+//           <input
+//             type="email"
+//             id="email"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//             required
+//           />
+//         </div>
+
+//         <div className="input-group">
+//           <label htmlFor="password">Password</label>
+//           <input
+//             type="password"
+//             id="password"
+//             value={password}
+//             onChange={(e) => {
+//               setPassword(e.target.value);
+//               setPasswordError('');
+//             }}
+//             required
+//           />
+//           {passwordError && <p className="error-message">{passwordError}</p>}
+//         </div>
+
+//         {isRegister && (
+//           <div className="input-group">
+//             <label htmlFor="confirmPassword">Confirm Password</label>
+//             <input
+//               type="password"
+//               id="confirmPassword"
+//               value={confirmPassword}
+//               onChange={(e) => setConfirmPassword(e.target.value)}
+//               required
+//             />
+//           </div>
+//         )}
+
+//         <button type="submit" className="submit-btn" disabled={loading}>
+//           {loading ? 'Processing...' : isRegister ? 'Register' : 'Login'}
+//         </button>
+//       </form>
+
+//       <div className="toggle-link">
+//         <span onClick={toggleForm}>
+//           {isRegister ? 'Already have an account? Login' : 'Need an account? Register'}
+//         </span>
+//       </div>
+
+//       <button className="logout-btn" onClick={handleLogout}>
+//         Logout
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default LoginRegister;
+
+
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -19,6 +186,7 @@ const LoginRegister = () => {
   const toggleForm = () => {
     setIsRegister(!isRegister);
     setPasswordError('');
+    setConfirmPassword('');
   };
 
   const validatePassword = (password) => password.length >= 6;
@@ -32,33 +200,30 @@ const LoginRegister = () => {
     }
 
     if (isRegister && password !== confirmPassword) {
-      alert('Passwords do not match!');
+      setPasswordError('Passwords do not match.');
       return;
     }
 
-    const baseUrl = process.env.REACT_APP_API_URL?.trim();
+    const baseUrl = process.env.REACT_APP_API_URL;
     if (!baseUrl) {
-      alert('Backend API URL not configured. Please check your .env');
+      alert('Backend API URL not configured. Please check your .env file.');
       return;
     }
 
     const url = isRegister ? `${baseUrl}/api/register` : `${baseUrl}/api/login`;
-    console.log('📡 Sending POST to:', url); // 🔍 Debug log
+    console.log('📡 Sending POST to:', url);
 
-    const data = {
-      email,
-      password,
-      ...(isRegister && { username }),
-    };
+    const payload = { email, password };
+    if (isRegister) payload.username = username;
 
     try {
       setLoading(true);
-      const response = await axios.post(url, data, {
+      const res = await axios.post(url, payload, {
         headers: { 'Content-Type': 'application/json' }
       });
 
-      if (response.data.token) {
-        localStorage.setItem('userToken', JSON.stringify(response.data.token));
+      if (res.data.token) {
+        localStorage.setItem('userToken', JSON.stringify(res.data.token));
         alert(isRegister ? 'Registration successful!' : 'Login successful!');
         if (packageName && packagePrice) {
           navigate('/book-now', { state: { packageName, packagePrice } });
@@ -66,16 +231,21 @@ const LoginRegister = () => {
           navigate('/shop');
         }
       } else {
-        alert(response.data.message || 'Invalid credentials');
+        alert(res.data.message || 'Invalid credentials.');
       }
     } catch (error) {
-      console.error('❌ Error submitting form:', error);
-      if (error.response?.status === 405) {
-        alert('⚠️ Method Not Allowed (405) - Please check your backend route and HTTP method.');
-      } else if (error.response?.status === 404) {
-        alert('⚠️ API Not Found (404) - Check your backend route.');
+      console.error('❌ Error:', error);
+      if (error.response) {
+        const { status, data } = error.response;
+        if (status === 405) {
+          alert('⚠️ 405 - Method Not Allowed');
+        } else if (status === 404) {
+          alert('⚠️ 404 - API Not Found');
+        } else {
+          alert(data.message || 'Something went wrong. Try again.');
+        }
       } else {
-        alert(error.response?.data?.message || 'An error occurred. Please try again.');
+        alert('Network error. Please try again later.');
       }
     } finally {
       setLoading(false);
@@ -91,6 +261,7 @@ const LoginRegister = () => {
   return (
     <div className="container">
       <h1>{isRegister ? 'Create an Account' : 'Login to Your Account'}</h1>
+
       <form onSubmit={handleSubmit} className="form">
         {isRegister && (
           <div className="input-group">
@@ -151,15 +322,20 @@ const LoginRegister = () => {
 
       <div className="toggle-link">
         <span onClick={toggleForm}>
-          {isRegister ? 'Already have an account? Login' : 'Need an account? Register'}
+          {isRegister
+            ? 'Already have an account? Login'
+            : 'Need an account? Register'}
         </span>
       </div>
 
-      <button className="logout-btn" onClick={handleLogout}>
-        Logout
-      </button>
+      {localStorage.getItem('userToken') && (
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
+      )}
     </div>
   );
 };
 
 export default LoginRegister;
+
