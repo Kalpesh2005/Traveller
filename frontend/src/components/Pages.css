@@ -1,39 +1,41 @@
 /* Set html and body to full height */
 html, body {
-  height: 100%; /* Ensures the body takes up the full height of the viewport */
-  margin: 0; /* Removes default margins */
-  font-family: Arial, sans-serif; /* Set your font */
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
 /* Pages Container */
 .pages-container {
-  max-width: 1700px; /* Maximum width for the container */
-  margin: 0 auto; /* Center the container */
-  background-image: url('../assets/images/travel.jpg'); /* Set the background image */
-  background-size: cover; /* Ensures the image covers the entire container */
-  background-position: center; /* Centers the background image */
-  background-attachment: fixed; /* Fixed background during scrolling */
-  background-repeat: no-repeat; /* Prevents the background image from repeating */
-  min-height: 150vh; /* Ensures the container takes up the full viewport height */
-  color: #fff; /* Makes text readable on top of the background image */
-  padding: 20px; /* Padding around the container */
-  position: relative; /* Establishes positioning context for pseudo-elements */
+  max-width: 1700px;
+  margin: 0 auto;
+  background-image: url('../assets/images/travel.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 150vh;
+  color: #fff;
+  padding: 20px;
+  position: relative;
+  box-sizing: border-box;
 }
 
 /* Section Styles */
 section {
-  margin-bottom: 40px; /* Space between sections */
-  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background for readability */
-  border-radius: 10px; /* Rounded corners for sections */
-  padding: 20px; /* Padding inside sections */
+  margin-bottom: 40px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Heading Styles */
+/* Section Heading */
 h2 {
-  font-size: 2.5rem; /* Font size for section headings */
-  margin-bottom: 20px; /* Space below headings */
-  text-align: center; /* Center align headings */
-  color: #ff6f61; /* Eye-catching color for headings */
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #ff6f61;
 }
 
 /* List Styles */
@@ -41,10 +43,10 @@ h2 {
 .services-list,
 .testimonials-list,
 .faq-list {
-  display: flex; /* Flexbox for layout */
-  flex-wrap: wrap; /* Allows wrapping of items */
-  gap: 20px; /* Space between items */
-  justify-content: center; /* Center align items */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
 /* Card Styles */
@@ -52,14 +54,15 @@ h2 {
 .service,
 .testimonial,
 .faq {
-  background-color: #ffffff; /* White background for cards */
-  padding: 20px; /* Padding inside cards */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
-  width: 100%; /* Full width for responsiveness */
-  max-width: 350px; /* Maximum width for cards */
-  text-align: center; /* Center align text inside cards */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 /* Hover Effects */
@@ -67,63 +70,107 @@ h2 {
 .service:hover,
 .testimonial:hover,
 .faq:hover {
-  transform: translateY(-5px); /* Lift effect on hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Card Title Styles */
+/* Card Titles */
 .offer h3,
 .service h3,
 .testimonial h4,
 .faq h4 {
-  font-size: 1.75rem; /* Font size for titles */
-  margin-bottom: 10px; /* Space below titles */
-  color: #222; /* Dark color for titles */
+  font-size: 1.75rem;
+  margin-bottom: 10px;
+  color: #222;
 }
 
-/* Card Description Styles */
+/* Card Text */
 .offer p,
 .service p,
 .testimonial p,
 .faq p {
-  font-size: 1rem; /* Font size for descriptions */
-  margin-bottom: 10px; /* Space below descriptions */
-  color: #666; /* Gray color for descriptions */
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #666;
 }
 
-/* Testimonial Specific Styles */
+/* Testimonial Specific */
 .testimonial h4 {
-  font-size: 1.25rem; /* Font size for testimonial authors */
-  font-weight: bold; /* Bold text for emphasis */
-  color: #333; /* Darker color for authors */
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
 }
 
-/* FAQ Specific Styles */
+/* FAQ Specific */
 .faq h4 {
-  font-size: 1.5rem; /* Font size for FAQ questions */
-  margin-bottom: 8px; /* Space below questions */
-  color: #444; /* Darker color for questions */
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: #444;
 }
 
 .faq p {
-  font-size: 1rem; /* Font size for FAQ answers */
-  color: #555; /* Medium gray color for answers */
+  font-size: 1rem;
+  color: #555;
 }
 
-/* Responsive Design Adjustments */
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .offer,
+  .service,
+  .testimonial,
+  .faq {
+    max-width: 45%;
+  }
+}
+
 @media (max-width: 768px) {
   .offers-list,
   .services-list,
   .testimonials-list,
   .faq-list {
-      flex-direction: column; /* Stacks items vertically on small screens */
-      align-items: center; /* Center align items */
+    flex-direction: column;
+    align-items: center;
   }
 
   .offer,
   .service,
   .testimonial,
   .faq {
-      max-width: 100%; /* Full width on small screens */
+    max-width: 100%;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    padding: 15px;
+  }
+
+  .offer,
+  .service,
+  .testimonial,
+  .faq {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  .offer h3,
+  .service h3,
+  .testimonial h4,
+  .faq h4 {
+    font-size: 1.4rem;
+  }
+
+  .offer p,
+  .service p,
+  .testimonial p,
+  .faq p {
+    font-size: 0.95rem;
   }
 }
