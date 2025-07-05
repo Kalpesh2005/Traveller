@@ -223,10 +223,12 @@
 
 
 
+
 // -------------------- Dependencies --------------------
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -247,7 +249,6 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    console.log('🌐 Incoming origin:', origin);
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -264,7 +265,8 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // Handle preflight
 
 // -------------------- Middleware --------------------
-app.use(express.json()); // ✅ Do not use bodyParser.json()
+app.use(express.json());
+app.use(bodyParser.json());
 
 // -------------------- MongoDB Connection --------------------
 const MONGO_URI = process.env.MONGO_URI;
@@ -336,25 +338,31 @@ app.get('/', (req, res) => {
 
 // --- Register ---
 app.post('/api/register', async (req, res) => {
-  console.log('📥 Register Request Body:', req.body); // ✅ Log incoming data
-
   const { username, email, password } = req.body;
 
+  console.log('📥 Register request received:', req.body);
+
   if (!username || !email || !password) {
+    console.warn('⚠️ Missing fields in register request');
     return res.status(400).json({ message: 'All fields are required' });
   }
 
   try {
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: 'User already exists' });
+    if (existingUser) {
+      console.warn('⚠️ User already exists:', email);
+      return res.status(400).json({ message: 'User already exists' });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
+
+    console.log('✅ User registered:', email);
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
-    console.error('❌ Error in registration:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('❌ Registration failed:', error);
+    res.status(500).json({ message: 'Server error during registration', error: error.message });
   }
 });
 
@@ -362,7 +370,9 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
 
   try {
     const user = await User.findOne({ email });
@@ -374,8 +384,7 @@ app.post('/api/login', async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token, message: 'Login successful' });
   } catch (error) {
-    console.error('❌ Error during login:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ message: 'Server error during login', error: error.message });
   }
 });
 
