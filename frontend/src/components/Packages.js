@@ -307,13 +307,19 @@ function Packages() {
     : travelPackages;
 
   const handleBookNow = (pkg) => {
-    const token = localStorage.getItem('userToken'); // ✅ Check token instead of user
+    const token = localStorage.getItem('userToken');
 
     if (!token) {
+      // 🔒 User not logged in
       alert('You must log in first to book a package!');
-      navigate('/loginregister', { state: { packageName: pkg.name, packagePrice: pkg.price } });
+      navigate('/loginregister', {
+        state: { packageName: pkg.name, packagePrice: pkg.price }
+      });
     } else {
-      navigate('/book-now', { state: { packageName: pkg.name, packagePrice: pkg.price } });
+      // ✅ User already logged in
+      navigate('/book-now', {
+        state: { packageName: pkg.name, packagePrice: pkg.price }
+      });
     }
   };
 
@@ -325,15 +331,9 @@ function Packages() {
           <div key={pkg.id} className="package-card">
             <h2>{pkg.name}</h2>
             <ul className="package-details">
-              <li>
-                <strong>Duration:</strong> {pkg.duration}
-              </li>
-              <li>
-                <strong>Food:</strong> {pkg.food}
-              </li>
-              <li>
-                <strong>Residence:</strong> {pkg.residence}
-              </li>
+              <li><strong>Duration:</strong> {pkg.duration}</li>
+              <li><strong>Food:</strong> {pkg.food}</li>
+              <li><strong>Residence:</strong> {pkg.residence}</li>
               <li>
                 <strong>Tour Plans:</strong>
                 <ul className="tour-plans">
@@ -342,9 +342,7 @@ function Packages() {
                   ))}
                 </ul>
               </li>
-              <li>
-                <strong>Price:</strong> {pkg.price}
-              </li>
+              <li><strong>Price:</strong> {pkg.price}</li>
             </ul>
             <button className="book-now-btn" onClick={() => handleBookNow(pkg)}>
               Book Now
