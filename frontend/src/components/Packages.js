@@ -181,7 +181,6 @@
 
 // export default Packages;
 
-
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Packages.css';
@@ -307,18 +306,23 @@ function Packages() {
     : travelPackages;
 
   const handleBookNow = (pkg) => {
-    const token = localStorage.getItem('userToken');
-
-    if (!token) {
-      // 🔒 User not logged in
+    try {
+      const token = JSON.parse(localStorage.getItem('userToken'));
+      if (!token) {
+        alert('You must log in first to book a package!');
+        navigate('/loginregister', {
+          state: { packageName: pkg.name, packagePrice: pkg.price },
+        });
+      } else {
+        navigate('/book-now', {
+          state: { packageName: pkg.name, packagePrice: pkg.price },
+        });
+      }
+    } catch (err) {
+      console.error('Token parsing error:', err);
       alert('You must log in first to book a package!');
       navigate('/loginregister', {
-        state: { packageName: pkg.name, packagePrice: pkg.price }
-      });
-    } else {
-      // ✅ User already logged in
-      navigate('/book-now', {
-        state: { packageName: pkg.name, packagePrice: pkg.price }
+        state: { packageName: pkg.name, packagePrice: pkg.price },
       });
     }
   };
@@ -331,18 +335,30 @@ function Packages() {
           <div key={pkg.id} className="package-card">
             <h2>{pkg.name}</h2>
             <ul className="package-details">
-              <li><strong>Duration:</strong> {pkg.duration}</li>
-              <li><strong>Food:</strong> {pkg.food}</li>
-              <li><strong>Residence:</strong> {pkg.residence}</li>
               <li>
-                <strong>Tour Plans:</strong>
+                <span className="detail-title"><strong>Duration:</strong></span>
+                <span className="detail-content">{pkg.duration}</span>
+              </li>
+              <li>
+                <span className="detail-title"><strong>Food:</strong></span>
+                <span className="detail-content">{pkg.food}</span>
+              </li>
+              <li>
+                <span className="detail-title"><strong>Residence:</strong></span>
+                <span className="detail-content">{pkg.residence}</span>
+              </li>
+              <li>
+                <span className="detail-title"><strong>Tour Plans:</strong></span>
                 <ul className="tour-plans">
                   {pkg.tourPlans.map((plan, index) => (
                     <li key={index}>{plan}</li>
                   ))}
                 </ul>
               </li>
-              <li><strong>Price:</strong> {pkg.price}</li>
+              <li>
+                <span className="detail-title"><strong>Price:</strong></span>
+                <span className="detail-content">{pkg.price}</span>
+              </li>
             </ul>
             <button className="book-now-btn" onClick={() => handleBookNow(pkg)}>
               Book Now
