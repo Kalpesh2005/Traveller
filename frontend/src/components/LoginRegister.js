@@ -165,8 +165,6 @@
 // export default LoginRegister;
 
 
-
-
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -222,7 +220,9 @@ const LoginRegister = () => {
       });
 
       if (response.data.token) {
+        // ✅ Store token and user email
         localStorage.setItem('userToken', JSON.stringify(response.data.token));
+        localStorage.setItem('userEmail', email);  // Save email as proof of login
         alert(isRegister ? 'Registration successful!' : 'Login successful!');
         if (packageName && packagePrice) {
           navigate('/book-now', { state: { packageName, packagePrice } });
@@ -242,6 +242,7 @@ const LoginRegister = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('userToken');
+    localStorage.removeItem('userEmail'); // also remove stored email
     alert('You have been logged out.');
     navigate('/explore');
   };
