@@ -181,7 +181,8 @@
 
 // export default Packages;
 
-import React, { useEffect, useState } from 'react';
+
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Packages.css';
 
@@ -189,18 +190,6 @@ function Packages() {
   const location = useLocation();
   const { locationName } = location.state || {};
   const navigate = useNavigate();
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // ✅ Check token in localStorage once when component loads
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('userToken')); // Parse it back
-    if (token && typeof token === 'string' && token.length > 0) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
 
   const travelPackages = [
     {
@@ -318,21 +307,13 @@ function Packages() {
     : travelPackages;
 
   const handleBookNow = (pkg) => {
-    if (!isLoggedIn) {
+    const token = localStorage.getItem('userToken'); // ✅ Check token instead of user
+
+    if (!token) {
       alert('You must log in first to book a package!');
-      navigate('/loginregister', {
-        state: {
-          packageName: pkg.name,
-          packagePrice: pkg.price,
-        },
-      });
+      navigate('/loginregister', { state: { packageName: pkg.name, packagePrice: pkg.price } });
     } else {
-      navigate('/book-now', {
-        state: {
-          packageName: pkg.name,
-          packagePrice: pkg.price,
-        },
-      });
+      navigate('/book-now', { state: { packageName: pkg.name, packagePrice: pkg.price } });
     }
   };
 
