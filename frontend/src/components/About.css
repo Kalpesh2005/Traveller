@@ -1,105 +1,159 @@
 /* Global Styles */
 * {
-  box-sizing: border-box; /* Ensures padding and border are included in width/height */
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: Arial, sans-serif; /* Base font */
-  background-color: #f5f5f5; /* Light background color */
-  -webkit-font-smoothing: antialiased; /* Smooth font rendering */
-  -moz-osx-font-smoothing: grayscale; /* Grayscale rendering for Firefox */
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* About Container */
 .about-container {
-   /* Centering the container */
-  background-image: url('../assets/images/travel.jpg'); /* Background image */
-  background-size: cover; /* Covers the entire container */
-  background-position: center; /* Centers the background image */
-  background-repeat: no-repeat; /* Prevents repetition */
-  color: #fff; /* Text color */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow effect for depth */
+  background-image: url('../assets/images/travel.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  padding: 40px 20px;
 }
 
 /* Header Styles */
 .about-header {
-  text-align: center; /* Center align header */
-  margin-bottom: 40px; /* Space below header */
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 .about-header h1 {
-  font-size: 2.5rem; /* Font size for main heading */
-  margin-bottom: 10px; /* Space below heading */
-  letter-spacing: 2px; /* Spacing between letters */
-  color:  #ff6f61; /* White color for the heading */
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+  color: #ff6f61;
 }
 
 /* Content Styles */
 .about-content {
-  line-height: 1.6; /* Increases line height for readability */
-  padding: 20px; /* Padding around the content */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for content */
-  border-radius: 10px; /* Rounded corners for content area */
+  line-height: 1.6;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 }
 
-/* Section Headers */
 .about-content h2 {
-  font-size: 28px; /* Font size for section headers */
-  margin-top: 30px; /* Space above section headers */
-  border-bottom: 2px solid #ff6f61; /* Bottom border for section headers */
-  padding-bottom: 10px; /* Space below section headers */
+  font-size: 28px;
+  margin-top: 30px;
+  border-bottom: 2px solid #ff6f61;
+  padding-bottom: 10px;
 }
 
-/* Paragraph Styles */
 .about-content p {
-  font-size: 18px; /* Font size for paragraphs */
-  margin-bottom: 20px; /* Space below paragraphs */
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
-/* Team Member Styles */
+/* Team Members */
 .team-members {
-  display: flex; /* Flexbox for layout */
-  flex-wrap: wrap; /* Wraps team members */
-  gap: 20px; /* Space between team members */
-  justify-content: center; /* Center align team members */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
 .team-member {
-  flex: 1 1 calc(30% - 20px); /* Flexible width for team members */
-  max-width: calc(30% - 20px); /* Maximum width */
-  text-align: center; /* Center align text */
-  background-color: rgba(20, 19, 19, 0.9); /* Light background for team member boxes */
-  border-radius: 10px; /* Rounded corners */
-  padding: 20px; /* Padding inside member boxes */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+  flex: 1 1 calc(30% - 20px);
+  max-width: calc(30% - 20px);
+  text-align: center;
+  background-color: rgba(20, 19, 19, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .team-member img {
-  border-radius: 50%; /* Circular images */
-  width: 150px; /* Fixed width for images */
-  height: 150px; /* Fixed height for images */
-  object-fit: cover; /* Ensures images cover the circle */
-  margin-bottom: 10px; /* Space below images */
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 10px;
 }
 
-/* Team Member Name Styles */
 .team-member h3 {
-  font-size: 22px; /* Font size for names */
-  margin: 10px 0; /* Space around names */
+  font-size: 22px;
+  margin: 10px 0;
 }
 
-/* Team Member Description Styles */
 .team-member p {
-  font-size: 16px; /* Font size for descriptions */
-  color: white; /* Darker text color for contrast */
+  font-size: 16px;
+  color: white;
 }
 
 /* Footer Styles */
 .about-footer {
-  text-align: center; /* Center align footer */
-  margin-top: 40px; /* Space above footer */
-  font-size: 18px; /* Font size for footer text */
-  color: #f0e68c; /* Light yellow color for footer text */
+  text-align: center;
+  margin-top: 40px;
+  font-size: 18px;
+  color: #f0e68c;
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 992px) {
+  .team-member {
+    flex: 1 1 45%;
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-header h1 {
+    font-size: 2rem;
+  }
+
+  .about-content h2 {
+    font-size: 22px;
+  }
+
+  .about-content p {
+    font-size: 16px;
+  }
+
+  .team-member {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .team-member img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-container {
+    padding: 20px 10px;
+  }
+
+  .about-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .about-content {
+    padding: 15px;
+  }
+
+  .team-member h3 {
+    font-size: 18px;
+  }
+
+  .team-member p {
+    font-size: 14px;
+  }
+
+  .about-footer {
+    font-size: 16px;
+  }
 }
