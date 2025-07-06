@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
+
 import Home from './components/Home';
 import Packages from './components/Packages';
 import BookNow from './components/BookNow';
@@ -47,10 +48,10 @@ function App() {
             <Route path="/explore" element={<Explore />} />
             <Route path="/loginregister" element={<LoginRegister />} />
 
-            {/* Protected Route */}
+            {/* ✅ Protected route using PrivateRoute wrapper */}
             <Route path="/book-now" element={<PrivateRoute><BookNow /></PrivateRoute>} />
 
-            {/* Fallback */}
+            {/* Optional: 404 fallback route */}
             <Route path="*" element={<h2>404 Page Not Found</h2>} />
           </Routes>
         </main>
