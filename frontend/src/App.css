@@ -1,3 +1,120 @@
+/* Global App Container */
+.App {
+  text-align: center;
+}
+
+/* Header Styles */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+/* Logo */
+.logo h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #ff6f61;
+}
+
+/* Navigation Container */
+nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* Navigation Links List */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Navigation Items */
+nav ul li {
+  margin: 5px 10px;
+}
+
+/* Navigation Links */
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px;
+  display: block;
+}
+
+/* Book Now Button */
+nav .book-now {
+  background-color: #ff6f61;
+  border: none;
+  padding: 8px 16px;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Headings */
+h2 {
+  margin-top: 20px;
+  font-size: 28px;
+}
+
+p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav {
+    width: 100%;
+  }
+
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  nav ul li {
+    margin: 8px 0;
+    width: 100%;
+  }
+
+  nav ul li a {
+    width: 100%;
+    padding: 10px 15px;
+  }
+
+  nav .book-now {
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+
+
+
+
 /* Show hamburger icon only on small screens */
 .menu-icon {
   display: none;
