@@ -47,12 +47,16 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/loginregister" element={<LoginRegister />} />
+            
+            {/* Private Route */}
+            <Route path="/book-now" element={
+              <PrivateRoute>
+                <BookNow />
+              </PrivateRoute>
+            } />
 
-            {/* ✅ Protected route using PrivateRoute wrapper */}
-            <Route path="/book-now" element={<PrivateRoute><BookNow /></PrivateRoute>} />
-
-            {/* Optional: 404 fallback route */}
-            <Route path="*" element={<h2>404 Page Not Found</h2>} />
+            {/* Catch-all route */}
+            <Route path="*" element={<h2>404 - Page Not Found</h2>} />
           </Routes>
         </main>
       </div>
