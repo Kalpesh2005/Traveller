@@ -1,110 +1,59 @@
-/* Global App Container */
 .App {
   text-align: center;
 }
 
-/* Header Styles */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   padding: 10px 20px;
   background-color: #333;
   color: #fff;
-  overflow-x: auto;
 }
 
-/* Logo */
+.menu-icon {
+  display: none; /* Hide the menu icon for the top navbar layout */
+}
+
 .logo h1 {
   margin: 0;
   font-size: 24px;
-  color: #ff6f61;
-  white-space: nowrap;
 }
 
-/* Navigation */
 nav {
   flex: 1;
   display: flex;
-  justify-content: center;
-  overflow-x: auto;
+  justify-content: center; /* Center align the nav items */
 }
 
 nav ul {
   list-style: none;
-  display: flex;
   padding: 0;
   margin: 0;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+  display: flex; /* Align items horizontally */
 }
 
 nav ul li {
-  margin: 0 10px;
-  white-space: nowrap;
+  margin: 0 15px;
 }
 
 nav ul li a {
   color: #fff;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 18px; /* Adjust font size for top navbar */
   padding: 10px;
-  display: block;
+  display: inline-block; /* Ensure the link has a block-like appearance */
 }
 
-/* Book Now Button */
 nav .book-now {
   background-color: #ff6f61;
   border: none;
-  padding: 8px 16px;
+  padding: 10px 20px;
   color: #fff;
   cursor: pointer;
-  margin-left: 10px;
-  border-radius: 4px;
-  font-size: 16px;
+  margin-left: 20px; /* Space between menu items and the button */
 }
 
-/* Hero Section */
-.hero {
-  background-image: url('../assets/images/travel.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  color: white;
-  padding: 100px 20px;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.hero p {
-  font-size: 1.25rem;
-  margin-bottom: 15px;
-}
-
-.hero .highlight {
-  font-weight: 600;
-  font-size: 1.25rem;
-}
-
-.hero .explore-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-/* Headings */
 h2 {
   margin-top: 20px;
   font-size: 28px;
@@ -115,50 +64,3 @@ p {
   margin-top: 10px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  nav {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  nav ul {
-    width: 100%;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-  }
-
-  nav ul li {
-    margin: 0 10px;
-  }
-
-  .hero {
-    padding: 60px 15px;
-    background-attachment: scroll;
-  }
-
-  .hero h1 {
-    font-size: 2rem;
-  }
-
-  .hero p,
-  .hero .highlight {
-    font-size: 1rem;
-  }
-
-  .hero .explore-button {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-  }
-
-  nav .book-now {
-    margin: 10px 0;
-    width: auto;
-  }
-}
