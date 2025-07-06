@@ -17,6 +17,8 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  padding: 100px 20px; /* Ensure spacing on all screens */
+  text-align: center;
 }
 
 .overlay {
@@ -30,11 +32,10 @@
 
 .hero-content {
   position: relative;
-  text-align: center;
   z-index: 1;
   max-width: 800px;
   padding: 20px;
-  margin: 0 15px;
+  margin: 0 auto;
 }
 
 .hero-content h1 {
@@ -42,15 +43,38 @@
   font-weight: bold;
   color: white;
   margin-bottom: 20px;
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
 .hero-content p {
-  font-size: 1.2rem;
-  margin-bottom: 40px;
+  font-size: 1.25rem;
+  margin-bottom: 20px;
   color: #f0f0f0;
 }
 
+.popular-places {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.explore-btn {
+  background-color: #000;
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+.explore-btn:hover {
+  background-color: #444;
+}
+
+/* Optional Search Bar Section */
 .search-bar {
   display: flex;
   flex-direction: column;
@@ -85,37 +109,24 @@
   font-size: 1rem;
 }
 
-.explore-btn {
-  background-color: #000;
-  color: #fff;
-  padding: 12px 30px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-  margin-top: 20px;
-  text-decoration: none;
-}
+/* -------------------- RESPONSIVE STYLES -------------------- */
 
-.explore-btn:hover {
-  background-color: #444;
-}
-
-.popular-places {
-  margin-top: 20px;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* Responsive design */
 @media (max-width: 768px) {
   .hero-content h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   .hero-content p {
-    font-size: 1rem;
+    font-size: 1.05rem;
+  }
+
+  .popular-places {
+    font-size: 0.95rem;
+  }
+
+  .explore-btn {
+    padding: 10px 22px;
+    font-size: 0.95rem;
   }
 
   .search-bar {
@@ -125,19 +136,15 @@
   .search-item {
     margin-bottom: 12px;
   }
-
-  .explore-btn {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
 }
 
 @media (max-width: 480px) {
   .hero-content h1 {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
   }
 
-  .hero-content p {
+  .hero-content p,
+  .popular-places {
     font-size: 0.9rem;
   }
 
@@ -147,6 +154,11 @@
 
   .search-item input,
   .search-item select {
+    font-size: 0.9rem;
+  }
+
+  .explore-btn {
+    padding: 9px 18px;
     font-size: 0.9rem;
   }
 }
