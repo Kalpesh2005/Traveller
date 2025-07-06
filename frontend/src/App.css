@@ -2,58 +2,70 @@
   text-align: center;
 }
 
+/* --------------------
+   HEADER STYLES
+-------------------- */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   padding: 10px 20px;
   background-color: #333;
   color: #fff;
+  overflow-x: auto;
 }
 
-.menu-icon {
-  display: none; /* Hide the menu icon for the top navbar layout */
-}
-
+/* LOGO */
 .logo h1 {
   margin: 0;
   font-size: 24px;
+  color: #ff6f61;
 }
 
+/* NAVIGATION */
 nav {
   flex: 1;
   display: flex;
-  justify-content: center; /* Center align the nav items */
+  justify-content: center;
+  overflow-x: auto;
 }
 
 nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex; /* Align items horizontally */
+  display: flex;
+  flex-wrap: nowrap; /* Keep horizontal layout */
+  align-items: center;
 }
 
 nav ul li {
-  margin: 0 15px;
+  margin: 0 10px;
+  white-space: nowrap;
 }
 
 nav ul li a {
   color: #fff;
   text-decoration: none;
-  font-size: 18px; /* Adjust font size for top navbar */
+  font-size: 18px;
   padding: 10px;
-  display: inline-block; /* Ensure the link has a block-like appearance */
+  display: inline-block;
 }
 
+/* BOOK NOW BUTTON */
 nav .book-now {
   background-color: #ff6f61;
   border: none;
   padding: 10px 20px;
   color: #fff;
   cursor: pointer;
-  margin-left: 20px; /* Space between menu items and the button */
+  margin-left: 20px;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
+/* HEADINGS */
 h2 {
   margin-top: 20px;
   font-size: 28px;
@@ -64,3 +76,44 @@ p {
   margin-top: 10px;
 }
 
+/* --------------------
+   RESPONSIVE STYLES
+-------------------- */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+
+  nav {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  nav ul {
+    flex-wrap: nowrap;
+    width: max-content;
+  }
+
+  nav ul li {
+    margin: 0 8px;
+  }
+
+  nav ul li a {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  nav .book-now {
+    padding: 8px 16px;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+}
+
+/* Hide hamburger if unused */
+.menu-icon {
+  display: none;
+}
