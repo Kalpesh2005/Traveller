@@ -17,8 +17,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 100px 20px; /* Ensure spacing on all screens */
-  text-align: center;
+  padding: 40px 20px;
 }
 
 .overlay {
@@ -32,6 +31,7 @@
 
 .hero-content {
   position: relative;
+  text-align: center;
   z-index: 1;
   max-width: 800px;
   padding: 20px;
@@ -41,9 +41,9 @@
 .hero-content h1 {
   font-size: 3rem;
   font-weight: bold;
-  color: white;
   margin-bottom: 20px;
-  line-height: 1.3;
+  color: white;
+  line-height: 1.2;
 }
 
 .hero-content p {
@@ -54,9 +54,10 @@
 
 .popular-places {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.85);
 }
 
+/* Explore Button */
 .explore-btn {
   background-color: #000;
   color: #fff;
@@ -66,7 +67,7 @@
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s;
-  margin-top: 20px;
+  margin-top: 25px;
   text-decoration: none;
 }
 
@@ -74,50 +75,22 @@
   background-color: #444;
 }
 
-/* Optional Search Bar Section */
-.search-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 50px;
-  padding: 20px 30px;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-.search-item {
-  margin-bottom: 15px;
-  width: 100%;
-}
-
-.search-item label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 0.9rem;
-  color: #444;
-}
-
-.search-item select,
-.search-item input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-/* -------------------- RESPONSIVE STYLES -------------------- */
+/* -------------------
+   RESPONSIVE SECTION
+---------------------- */
 
 @media (max-width: 768px) {
+  .hero-content {
+    padding: 10px;
+    margin: 0 10px;
+  }
+
   .hero-content h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .hero-content p {
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
 
   .popular-places {
@@ -125,40 +98,26 @@
   }
 
   .explore-btn {
-    padding: 10px 22px;
-    font-size: 0.95rem;
-  }
-
-  .search-bar {
-    padding: 15px 20px;
-  }
-
-  .search-item {
-    margin-bottom: 12px;
+    font-size: 0.9rem;
+    padding: 10px 24px;
   }
 }
 
 @media (max-width: 480px) {
   .hero-content h1 {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
   }
 
-  .hero-content p,
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
   .popular-places {
-    font-size: 0.9rem;
-  }
-
-  .search-item label {
-    font-size: 0.8rem;
-  }
-
-  .search-item input,
-  .search-item select {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .explore-btn {
-    padding: 9px 18px;
-    font-size: 0.9rem;
+    padding: 8px 20px;
+    font-size: 0.85rem;
   }
 }
