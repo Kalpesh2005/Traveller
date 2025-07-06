@@ -17,7 +17,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* Header */}
         <header>
           <div className="logo">
             <h1>Traveller</h1>
@@ -36,7 +35,6 @@ function App() {
           </nav>
         </header>
 
-        {/* Main Routes */}
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -47,15 +45,12 @@ function App() {
             <Route path="/news" element={<News />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/book-now" element={<BookNow />} />
             <Route path="/loginregister" element={<LoginRegister />} />
-
-            {/* Protected BookNow Route */}
             <Route element={<PrivateRoute />}>
               <Route path="/book-now" element={<BookNow />} />
             </Route>
-
-            {/* 404 Route Fallback */}
-            <Route path="*" element={<h2 style={{ padding: '50px', textAlign: 'center' }}>404 - Page Not Found</h2>} />
+            <Route path="*" element={null} />
           </Routes>
         </main>
       </div>
@@ -64,3 +59,4 @@ function App() {
 }
 
 export default App;
+
