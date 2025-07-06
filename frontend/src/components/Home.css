@@ -1,23 +1,26 @@
 .home-container {
   position: relative;
+  height: 100vh;
   width: 100%;
-  min-height: 100vh;
   overflow: hidden;
-  background-image: url('../assets/images/travel.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  color: #fff;
+  background-image: url('../assets/images/travel.jpg'); /* Set the background image here */
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the background image */
+  background-attachment: fixed; /* Makes the background image fixed during scrolling */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+  min-height: 100vh; /* Ensures the container takes up the full viewport height */
+  color: #fff; /* Makes text readable on top of the background image */
 }
 
 .hero-section {
+  background-size: cover;
+  background-position: center;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
   position: relative;
-  padding: 40px 20px;
 }
 
 .overlay {
@@ -34,90 +37,100 @@
   text-align: center;
   z-index: 1;
   max-width: 800px;
-  padding: 20px;
-  margin: 0 auto;
+  padding: 20px; /* Added padding to ensure content does not touch edges */
+  margin: 0 15px; /* Added margin for spacing */
 }
 
 .hero-content h1 {
-  font-size: 3rem;
+  font-size: 3rem; /* Large font size for the heading */
   font-weight: bold;
-  margin-bottom: 20px;
-  color: white;
+  color:white;
+  margin-bottom: 20px; /* Spacing below the heading */
   line-height: 1.2;
 }
 
 .hero-content p {
-  font-size: 1.25rem;
-  margin-bottom: 20px;
-  color: #f0f0f0;
+  font-size: 1.2rem; /* Font size for paragraph text */
+  margin-bottom: 40px; /* Spacing below the paragraph */
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column; /* Stacks the search items vertically */
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly opaque background */
+  border-radius: 50px;
+  padding: 20px 30px; /* Added padding for spacing */
+  width: 100%;
+  max-width: 800px; /* Maximum width of the search bar */
+  margin: 0 auto; /* Center the search bar */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); /* Light shadow for elevation effect */
+}
+
+.search-item {
+  margin-bottom: 10px; /* Space between search items */
+  width: 100%;
+}
+
+.search-item label {
+  display: block;
+  margin-bottom: 5px; /* Space below the label */
+  font-size: 0.9rem; /* Font size for the label */
+  color: #555; /* Dark gray color for the label text */
+}
+
+.search-item select,
+.search-item input {
+  width: 100%;
+  padding: 10px; /* Padding inside input/select fields */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #ddd; /* Light border */
+  font-size: 1rem; /* Font size for inputs and selects */
+}
+
+.explore-btn {
+  background-color: #000; /* Black background for the button */
+  color: #fff; /* White text color */
+  padding: 12px 30px; /* Padding inside the button */
+  border: none;
+  border-radius: 50px; /* Rounded corners */
+  cursor: pointer;
+  font-size: 1rem; /* Font size for button text */
+  transition: background-color 0.3s; /* Smooth background color transition on hover */
+  margin-top: 20px; /* Space above the button */
+  text-decoration: none; /* Remove underline */
+}
+
+
+.explore-btn:hover {
+  background-color: #444; /* Darker background color on hover */
 }
 
 .popular-places {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.85);
+  margin-top: 20px; /* Space above the popular places section */
+  font-size: 1rem; /* Font size for popular places text */
+  color: rgba(255, 255, 255, 0.8); /* Slightly opaque white color */
 }
 
-/* Explore Button */
-.explore-btn {
-  background-color: #000;
-  color: #fff;
-  padding: 12px 30px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-  margin-top: 25px;
-  text-decoration: none;
-}
-
-.explore-btn:hover {
-  background-color: #444;
-}
-
-/* -------------------
-   RESPONSIVE SECTION
----------------------- */
-
+/* Responsive design adjustments */
 @media (max-width: 768px) {
-  .hero-content {
-    padding: 10px;
-    margin: 0 10px;
-  }
-
   .hero-content h1 {
-    font-size: 2rem;
+    font-size: 2.5rem; /* Smaller font size for the heading on smaller screens */
   }
 
   .hero-content p {
-    font-size: 1rem;
+    font-size: 1rem; /* Smaller font size for paragraph text on smaller screens */
   }
 
-  .popular-places {
-    font-size: 0.95rem;
+  .search-bar {
+    padding: 15px 20px; /* Reduced padding for smaller screens */
   }
 
-  .explore-btn {
-    font-size: 0.9rem;
-    padding: 10px 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-content h1 {
-    font-size: 1.6rem;
-  }
-
-  .hero-content p {
-    font-size: 0.9rem;
-  }
-
-  .popular-places {
-    font-size: 0.85rem;
+  .search-item {
+    margin-bottom: 8px; /* Reduced margin for smaller screens */
   }
 
   .explore-btn {
-    padding: 8px 20px;
-    font-size: 0.85rem;
+    padding: 10px 20px; /* Adjusted button padding for smaller screens */
   }
 }
