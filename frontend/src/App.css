@@ -159,3 +159,23 @@ p {
     align-items: flex-start;
   }
 }
+
+
+/* Ensure horizontal navbar fits mobile without breaking layout */
+header {
+  flex-wrap: wrap;
+  overflow-x: auto;
+}
+
+nav ul {
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-x: auto;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  white-space: nowrap;
+  margin: 5px 10px;
+}
