@@ -1,96 +1,111 @@
+/* Global App Container */
 .App {
   text-align: center;
-  font-family: Arial, sans-serif;
 }
 
-/* Header Styling */
+/* Header Styles */
 header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
+  padding: 10px 20px;
   background-color: #333;
   color: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 100;
 }
 
 /* Logo */
 .logo h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 24px;
+  color: #ff6f61;
 }
 
-/* Navigation */
+/* Navigation Container */
 nav {
   flex: 1;
   display: flex;
   justify-content: center;
 }
 
+/* Navigation Links List */
 nav ul {
   list-style: none;
-  display: flex;
-  gap: 20px;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  justify-content: center;
+  align-items: center;
 }
 
+/* Navigation Items */
+nav ul li {
+  margin: 5px 10px;
+}
+
+/* Navigation Links */
 nav ul li a {
   color: #fff;
   text-decoration: none;
-  font-size: 1rem;
-  padding: 10px 15px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-nav ul li a:hover {
-  background-color: #555;
-  border-radius: 5px;
+  font-size: 16px;
+  padding: 8px;
+  display: block;
 }
 
 /* Book Now Button */
 nav .book-now {
   background-color: #ff6f61;
   border: none;
-  padding: 10px 20px;
+  padding: 8px 16px;
   color: #fff;
   cursor: pointer;
-  font-size: 1rem;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  margin-left: 20px;
+  margin-left: 10px;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
-nav .book-now:hover {
-  background-color: #e5544f;
-}
-
-/* Heading and Paragraph Styles */
+/* Headings */
 h2 {
   margin-top: 20px;
-  font-size: 2rem;
+  font-size: 28px;
 }
 
 p {
-  font-size: 1.125rem;
+  font-size: 18px;
   margin-top: 10px;
 }
 
-/* Responsive: Collapse menu into icon on small screens */
-.menu-icon {
-  display: none;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
-  nav {
-    display: none;
+  header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .menu-icon {
-    display: block;
-    font-size: 1.5rem;
-    cursor: pointer;
+  nav {
+    width: 100%;
+  }
+
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  nav ul li {
+    margin: 8px 0;
+    width: 100%;
+  }
+
+  nav ul li a {
+    width: 100%;
+    padding: 10px 15px;
+  }
+
+  nav .book-now {
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
   }
 }
