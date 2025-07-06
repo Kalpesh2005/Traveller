@@ -8,13 +8,11 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap; /* Allow nav wrapping on small screens */
+  flex-wrap: wrap;
   padding: 10px 20px;
   background-color: #333;
   color: #fff;
   overflow-x: auto;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 /* Logo */
@@ -22,41 +20,36 @@ header {
   margin: 0;
   font-size: 24px;
   color: #ff6f61;
+  white-space: nowrap;
 }
 
-/* Navigation Container */
+/* Navigation */
 nav {
   flex: 1;
   display: flex;
   justify-content: center;
-  width: 100%;
   overflow-x: auto;
 }
 
-/* Navigation Links List */
 nav ul {
   list-style: none;
   display: flex;
-  flex-wrap: nowrap; /* Keep items in a row */
-  justify-content: center;
-  align-items: center;
   padding: 0;
   margin: 0;
+  flex-wrap: nowrap;
   overflow-x: auto;
 }
 
-/* Navigation Items */
 nav ul li {
+  margin: 0 10px;
   white-space: nowrap;
-  margin: 5px 10px;
 }
 
-/* Navigation Links */
 nav ul li a {
   color: #fff;
   text-decoration: none;
   font-size: 16px;
-  padding: 8px;
+  padding: 10px;
   display: block;
 }
 
@@ -72,6 +65,45 @@ nav .book-now {
   font-size: 16px;
 }
 
+/* Hero Section */
+.hero {
+  background-image: url('../assets/images/travel.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  margin-bottom: 15px;
+}
+
+.hero .highlight {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.hero .explore-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 /* Headings */
 h2 {
   margin-top: 20px;
@@ -83,44 +115,50 @@ p {
   margin-top: 10px;
 }
 
-/* Menu icon - hidden, not needed if keeping horizontal nav always */
-.menu-icon {
-  display: none;
-}
-
-/* Responsive Adjustments */
+/* Responsive Design */
 @media (max-width: 768px) {
-  nav ul li a {
-    font-size: 14px;
-    padding: 8px 10px;
-  }
-
-  nav ul {
-    justify-content: flex-start;
-    padding: 5px 10px;
-  }
-
   header {
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px;
   }
 
   nav {
+    width: 100%;
     justify-content: flex-start;
   }
 
-  .logo h1 {
-    font-size: 20px;
+  nav ul {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  nav ul li {
+    margin: 0 10px;
+  }
+
+  .hero {
+    padding: 60px 15px;
+    background-attachment: scroll;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p,
+  .hero .highlight {
+    font-size: 1rem;
+  }
+
+  .hero .explore-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
   }
 
   nav .book-now {
-    font-size: 14px;
-    padding: 6px 12px;
+    margin: 10px 0;
+    width: auto;
   }
-}
-
-/* Prevent horizontal scroll on body */
-body {
-  overflow-x: hidden;
 }
