@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
@@ -46,12 +45,15 @@ function App() {
             <Route path="/news" element={<News />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/explore" element={<Explore />} />
-            <Route path="/book-now" element={<BookNow />} />
             <Route path="/loginregister" element={<LoginRegister />} />
+
+            {/* Protected Route */}
             <Route element={<PrivateRoute />}>
               <Route path="/book-now" element={<BookNow />} />
             </Route>
-            <Route path="*" element={null} />
+
+            {/* Optional: 404 Fallback */}
+            <Route path="*" element={<h2>Page Not Found</h2>} />
           </Routes>
         </main>
       </div>
