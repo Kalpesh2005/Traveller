@@ -1,14 +1,13 @@
 .home-container {
   position: relative;
-  height: 100vh;
   width: 100%;
-  overflow: hidden;
-  background-image: url('../assets/images/travel.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
   min-height: 100vh;
+  overflow: hidden;
+  background-image: url('../assets/images/travel.jpg'); /* Make sure this path is correct */
+  background-size: cover;        /* Stretch image to fill */
+  background-position: center;   /* Center image */
+  background-repeat: no-repeat;  /* Prevent image from repeating */
+  background-attachment: fixed;
   color: #fff;
 }
 
@@ -17,7 +16,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   position: relative;
 }
 
@@ -27,7 +25,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay to make text readable */
 }
 
 .hero-content {
@@ -42,48 +40,23 @@
 .hero-content h1 {
   font-size: 3rem;
   font-weight: bold;
+  color: #ff6f61; /* Stylish highlight */
   margin-bottom: 20px;
   line-height: 1.2;
 }
 
 .hero-content p {
   font-size: 1.2rem;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   color: #f0f0f0;
+  font-weight: bold;
 }
 
-.search-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 50px;
-  padding: 20px 30px;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.search-item {
-  margin-bottom: 15px;
-  width: 100%;
-}
-
-.search-item label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 0.9rem;
-  color: #444;
-}
-
-.search-item select,
-.search-item input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+.popular-places {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 30px;
 }
 
 .explore-btn {
@@ -91,11 +64,10 @@
   color: #fff;
   padding: 12px 30px;
   border: none;
-  border-radius: 50px;
+  border-radius: 30px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s;
-  margin-top: 20px;
   text-decoration: none;
 }
 
@@ -103,48 +75,26 @@
   background-color: #444;
 }
 
-.popular-places {
-  margin-top: 20px;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* --------- RESPONSIVE --------- */
-
+/* ----------------------------------
+   RESPONSIVE DESIGN - MOBILE ADJUST
+---------------------------------- */
 @media (max-width: 768px) {
   .hero-content h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   .hero-content p {
     font-size: 1rem;
   }
 
-  .search-bar {
-    padding: 15px 20px;
-    border-radius: 20px;
-  }
-
-  .search-item {
-    margin-bottom: 10px;
-  }
-
-  .search-item label {
-    font-size: 0.85rem;
-  }
-
-  .search-item select,
-  .search-item input {
-    font-size: 0.95rem;
+  .popular-places {
+    font-size: 1rem;
+    padding: 0 10px;
   }
 
   .explore-btn {
-    padding: 10px 20px;
+    padding: 10px 24px;
     font-size: 0.95rem;
-  }
-
-  .popular-places {
-    font-size: 0.9rem;
   }
 }
 
@@ -153,29 +103,13 @@
     font-size: 1.6rem;
   }
 
-  .hero-content p {
-    font-size: 0.9rem;
-  }
-
-  .search-bar {
-    padding: 10px 15px;
-  }
-
-  .search-item label {
-    font-size: 0.8rem;
-  }
-
-  .search-item input,
-  .search-item select {
+  .hero-content p,
+  .popular-places {
     font-size: 0.9rem;
   }
 
   .explore-btn {
-    padding: 10px 20px;
     font-size: 0.85rem;
-  }
-
-  .popular-places {
-    font-size: 0.85rem;
+    padding: 8px 20px;
   }
 }
