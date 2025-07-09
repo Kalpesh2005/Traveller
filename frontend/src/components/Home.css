@@ -5,12 +5,33 @@
   overflow: hidden;
 
   background-image: url('../assets/images/travel.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
+  background-size: cover;         /* Fill the container */
+  background-position: center;    /* Keep focal point centered */
+  background-repeat: no-repeat;   /* Prevent tiling */
+  background-attachment: fixed;   /* Parallax-like effect on scroll */
 
   color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .home-container {
+    background-attachment: scroll; /* Disable fixed image on mobile for performance */
+    padding: 30px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 20px 10px;
+    background-position: top center; /* Improve mobile image focus */
+  }
 }
 
 
