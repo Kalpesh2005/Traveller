@@ -4,8 +4,12 @@
   min-height: 100vh;
   overflow: hidden;
 
-  /* Background image removed */
-  background-color: #1a1a1a; /* Optional: fallback dark background */
+  background-image: url('../assets/images/travel.jpg'); /* ✅ Your image path here */
+  background-size: cover;         /* Fill the container */
+  background-position: center;    /* Keep focal point centered */
+  background-repeat: no-repeat;   /* Prevent tiling */
+  background-attachment: fixed;   /* Parallax effect on desktop */
+
   color: #fff;
   display: flex;
   align-items: center;
@@ -15,9 +19,10 @@
   text-align: center;
 }
 
-/* Responsive Adjustments */
+/* Mobile - make image scroll instead of fixed for performance */
 @media (max-width: 768px) {
   .home-container {
+    background-attachment: scroll;
     padding: 30px 15px;
   }
 }
@@ -25,6 +30,7 @@
 @media (max-width: 480px) {
   .home-container {
     padding: 20px 10px;
+    background-position: top center; /* Improve focus on phones */
   }
 }
 
