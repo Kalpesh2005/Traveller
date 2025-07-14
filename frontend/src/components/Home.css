@@ -1,203 +1,63 @@
 .home-container {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
 
-  background-image: url('../assets/images/travel.jpg'); /* ✅ Your image path here */
-  background-size: cover;         /* Fill the container */
-  background-position: center;    /* Keep focal point centered */
-  background-repeat: no-repeat;   /* Prevent tiling */
-  background-attachment: fixed;   /* Parallax effect on desktop */
+  background-image: url('/images/travel.jpg'); /* ✅ Use public path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
-  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
   text-align: center;
+  color: #fff;
 }
 
-/* Mobile - make image scroll instead of fixed for performance */
+/* Mobile-friendly: disable fixed attachment */
 @media (max-width: 768px) {
   .home-container {
     background-attachment: scroll;
-    padding: 30px 15px;
+    padding: 20px;
   }
-}
-
-@media (max-width: 480px) {
-  .home-container {
-    padding: 20px 10px;
-    background-position: top center; /* Improve focus on phones */
-  }
-}
-
-.hero-section {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  position: relative;
 }
 
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for readability */
+  z-index: 1;
 }
 
 .hero-content {
   position: relative;
-  text-align: center;
-  z-index: 1;
+  z-index: 2;
   max-width: 800px;
   padding: 20px;
-  margin: 0 15px;
 }
 
 .hero-content h1 {
   font-size: 3rem;
-  font-weight: bold;
   margin-bottom: 20px;
-  line-height: 1.2;
 }
 
 .hero-content p {
   font-size: 1.2rem;
   margin-bottom: 40px;
-  color: #f0f0f0;
 }
 
-.search-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 50px;
-  padding: 20px 30px;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.search-item {
-  margin-bottom: 15px;
-  width: 100%;
-}
-
-.search-item label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 0.9rem;
-  color: #444;
-}
-
-.search-item select,
-.search-item input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-.explore-btn {
-  background-color: #000;
-  color: #fff;
-  padding: 12px 30px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-  margin-top: 20px;
-  text-decoration: none;
-}
-
-.explore-btn:hover {
-  background-color: #444;
-}
-
-.popular-places {
-  margin-top: 20px;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* --------- RESPONSIVE --------- */
-
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .hero-content h1 {
     font-size: 2rem;
   }
 
   .hero-content p {
     font-size: 1rem;
-  }
-
-  .search-bar {
-    padding: 15px 20px;
-    border-radius: 20px;
-  }
-
-  .search-item {
-    margin-bottom: 10px;
-  }
-
-  .search-item label {
-    font-size: 0.85rem;
-  }
-
-  .search-item select,
-  .search-item input {
-    font-size: 0.95rem;
-  }
-
-  .explore-btn {
-    padding: 10px 20px;
-    font-size: 0.95rem;
-  }
-
-  .popular-places {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-content h1 {
-    font-size: 1.6rem;
-  }
-
-  .hero-content p {
-    font-size: 0.9rem;
-  }
-
-  .search-bar {
-    padding: 10px 15px;
-  }
-
-  .search-item label {
-    font-size: 0.8rem;
-  }
-
-  .search-item input,
-  .search-item select {
-    font-size: 0.9rem;
-  }
-
-  .explore-btn {
-    padding: 10px 20px;
-    font-size: 0.85rem;
-  }
-
-  .popular-places {
-    font-size: 0.85rem;
   }
 }
