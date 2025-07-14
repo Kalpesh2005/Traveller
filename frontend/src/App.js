@@ -47,15 +47,15 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/loginregister" element={<LoginRegister />} />
-            
-            {/* Private Route */}
+
+            {/* ✅ Private Route wrapper */}
             <Route path="/book-now" element={
               <PrivateRoute>
                 <BookNow />
               </PrivateRoute>
             } />
 
-            {/* Catch-all route */}
+            {/* ✅ Catch-all route */}
             <Route path="*" element={<h2>404 - Page Not Found</h2>} />
           </Routes>
         </main>
