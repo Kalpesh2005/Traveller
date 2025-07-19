@@ -12,7 +12,12 @@ import News from './components/News';
 import Contact from './components/Contact';
 import Explore from './components/Explore';
 import LoginRegister from './components/LoginRegister';
-import PrivateRoute from './components/PrivateRoute';
+
+// If you want custom protection, you can improve this PrivateRoute
+function PrivateRoute({ children }) {
+  const isAuthenticated = localStorage.getItem('userToken');
+  return isAuthenticated ? children : <h2>Please login to access this page.</h2>;
+}
 
 function App() {
   return (
@@ -48,14 +53,17 @@ function App() {
             <Route path="/explore" element={<Explore />} />
             <Route path="/loginregister" element={<LoginRegister />} />
 
-            {/* ✅ Private Route wrapper */}
-            <Route path="/book-now" element={
-              <PrivateRoute>
-                <BookNow />
-              </PrivateRoute>
-            } />
+            {/* ✅ BookNow route is protected by PrivateRoute */}
+            <Route
+              path="/book-now"
+              element={
+                <PrivateRoute>
+                  <BookNow />
+                </PrivateRoute>
+              }
+            />
 
-            {/* ✅ Catch-all route */}
+            {/* ✅ 404 fallback */}
             <Route path="*" element={<h2>404 - Page Not Found</h2>} />
           </Routes>
         </main>
