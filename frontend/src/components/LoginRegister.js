@@ -1,7 +1,10 @@
+
 // import React, { useState } from 'react';
 // import { useNavigate, useLocation } from 'react-router-dom';
 // import axios from 'axios';
 // import './LoginRegister.css';
+
+// const API_URL = process.env.REACT_APP_API_URL?.trim() || 'https://traveller-17ng.onrender.com';
 
 // const LoginRegister = () => {
 //   const navigate = useNavigate();
@@ -36,14 +39,7 @@
 //       return;
 //     }
 
-//     const baseUrl = process.env.REACT_APP_API_URL?.trim();
-//     if (!baseUrl) {
-//       alert('Backend API URL not configured. Please check your .env');
-//       return;
-//     }
-
-//     const url = isRegister ? `${baseUrl}/api/register` : `${baseUrl}/api/login`;
-//     console.log('📡 Sending POST to:', url); // 🔍 Debug log
+//     const url = isRegister ? `${API_URL}/api/register` : `${API_URL}/api/login`;
 
 //     const data = {
 //       email,
@@ -58,7 +54,9 @@
 //       });
 
 //       if (response.data.token) {
+//         // ✅ Store token and user email
 //         localStorage.setItem('userToken', JSON.stringify(response.data.token));
+//         localStorage.setItem('userEmail', email);  // Save email as proof of login
 //         alert(isRegister ? 'Registration successful!' : 'Login successful!');
 //         if (packageName && packagePrice) {
 //           navigate('/book-now', { state: { packageName, packagePrice } });
@@ -70,13 +68,7 @@
 //       }
 //     } catch (error) {
 //       console.error('❌ Error submitting form:', error);
-//       if (error.response?.status === 405) {
-//         alert('⚠️ Method Not Allowed (405) - Please check your backend route and HTTP method.');
-//       } else if (error.response?.status === 404) {
-//         alert('⚠️ API Not Found (404) - Check your backend route.');
-//       } else {
-//         alert(error.response?.data?.message || 'An error occurred. Please try again.');
-//       }
+//       alert(error.response?.data?.message || 'An error occurred. Please try again.');
 //     } finally {
 //       setLoading(false);
 //     }
@@ -84,6 +76,7 @@
 
 //   const handleLogout = () => {
 //     localStorage.removeItem('userToken');
+//     localStorage.removeItem('userEmail'); // also remove stored email
 //     alert('You have been logged out.');
 //     navigate('/explore');
 //   };
@@ -165,6 +158,7 @@
 // export default LoginRegister;
 
 
+
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -175,8 +169,6 @@ const API_URL = process.env.REACT_APP_API_URL?.trim() || 'https://traveller-17ng
 const LoginRegister = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { packageName, packagePrice } = location.state || {};
-
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -220,12 +212,16 @@ const LoginRegister = () => {
       });
 
       if (response.data.token) {
-        // ✅ Store token and user email
         localStorage.setItem('userToken', JSON.stringify(response.data.token));
-        localStorage.setItem('userEmail', email);  // Save email as proof of login
+        localStorage.setItem('userEmail', email);
+
         alert(isRegister ? 'Registration successful!' : 'Login successful!');
-        if (packageName && packagePrice) {
-          navigate('/book-now', { state: { packageName, packagePrice } });
+
+        // 🔁 Check for saved booking intent
+        const bookingIntent = JSON.parse(localStorage.getItem('bookingIntent'));
+        if (bookingIntent?.packageName && bookingIntent?.packagePrice) {
+          localStorage.removeItem('bookingIntent');
+          navigate('/book-now', { state: bookingIntent });
         } else {
           navigate('/shop');
         }
@@ -242,7 +238,7 @@ const LoginRegister = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('userToken');
-    localStorage.removeItem('userEmail'); // also remove stored email
+    localStorage.removeItem('userEmail');
     alert('You have been logged out.');
     navigate('/explore');
   };
