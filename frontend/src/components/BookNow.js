@@ -148,8 +148,6 @@
 // }
 
 // export default BookNow;
-
-
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './BookNow.css';
@@ -171,32 +169,27 @@ function BookNow() {
   const [formErrors, setFormErrors] = useState({});
   const isAuthenticated = localStorage.getItem('userToken');
 
-  const packageName = locationState.packageName;
-  const packagePrice = locationState.packagePrice;
+  const [packageName, setPackageName] = useState(locationState.packageName);
+  const [packagePrice, setPackagePrice] = useState(locationState.packagePrice);
 
   useEffect(() => {
-    // Fallback: load from localStorage if no state passed
-    if (!packageName || !packagePrice) {
-      const storedIntent = JSON.parse(localStorage.getItem('bookingIntent'));
-      if (storedIntent?.packageName && storedIntent?.packagePrice) {
-        navigate('/book-now', { state: storedIntent });
-      }
-    }
-  }, [packageName, packagePrice, navigate]);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      // Store booking intent before redirecting
+    // If not logged in but package is selected, save and redirect
+    if (!isAuthenticated && (packageName && packagePrice)) {
       localStorage.setItem('bookingIntent', JSON.stringify({ packageName, packagePrice }));
       alert('Please log in or register to book a package.');
       navigate('/loginregister');
     }
-  }, [isAuthenticated, navigate, packageName, packagePrice]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
+    // If no packageName passed, try to load from storage
+    if ((!packageName || !packagePrice) && isAuthenticated) {
+      const savedIntent = JSON.parse(localStorage.getItem('bookingIntent'));
+      if (savedIntent?.packageName && savedIntent?.packagePrice) {
+        setPackageName(savedIntent.packageName);
+        setPackagePrice(savedIntent.packagePrice);
+        setCalculatedPrice(savedIntent.packagePrice);
+      }
+    }
+  }, [isAuthenticated, packageName, packagePrice, navigate]);
 
   useEffect(() => {
     const basePrice = parseInt(packagePrice?.replace('Rs.', '').replace(',', '')) || 0;
@@ -205,6 +198,11 @@ function BookNow() {
     if (peopleCount >= 4) totalPrice *= 0.75;
     setCalculatedPrice(`Rs.${totalPrice.toLocaleString()}`);
   }, [formData.people, packagePrice]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const validateForm = () => {
     const errors = {};
@@ -225,11 +223,7 @@ function BookNow() {
     setError(null);
     if (!validateForm()) return;
 
-    const baseUrl = process.env.REACT_APP_API_URL?.trim();
-    if (!baseUrl) {
-      setError('API base URL is not configured.');
-      return;
-    }
+    const baseUrl = process.env.REACT_APP_API_URL?.trim() || 'https://traveller-17ng.onrender.com';
 
     try {
       const response = await fetch(`${baseUrl}/api/bookings`, {
@@ -313,4 +307,3 @@ function BookNow() {
 }
 
 export default BookNow;
-
