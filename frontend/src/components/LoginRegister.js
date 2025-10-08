@@ -1,167 +1,3 @@
-<<<<<<< HEAD
-=======
-
-// import React, { useState } from 'react';
-// import { useNavigate, useLocation } from 'react-router-dom';
-// import axios from 'axios';
-// import './LoginRegister.css';
-
-// const API_URL = process.env.REACT_APP_API_URL?.trim() || 'https://traveller-17ng.onrender.com';
-
-// const LoginRegister = () => {
-//   const navigate = useNavigate();
-//   const location = useLocation();
-//   const { packageName, packagePrice } = location.state || {};
-
-//   const [isRegister, setIsRegister] = useState(false);
-//   const [username, setUsername] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [confirmPassword, setConfirmPassword] = useState('');
-//   const [passwordError, setPasswordError] = useState('');
-//   const [loading, setLoading] = useState(false);
-
-//   const toggleForm = () => {
-//     setIsRegister(!isRegister);
-//     setPasswordError('');
-//   };
-
-//   const validatePassword = (password) => password.length >= 6;
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (!validatePassword(password)) {
-//       setPasswordError('Password must be at least 6 characters long.');
-//       return;
-//     }
-
-//     if (isRegister && password !== confirmPassword) {
-//       alert('Passwords do not match!');
-//       return;
-//     }
-
-//     const url = isRegister ? `${API_URL}/api/register` : `${API_URL}/api/login`;
-
-//     const data = {
-//       email,
-//       password,
-//       ...(isRegister && { username }),
-//     };
-
-//     try {
-//       setLoading(true);
-//       const response = await axios.post(url, data, {
-//         headers: { 'Content-Type': 'application/json' }
-//       });
-
-//       if (response.data.token) {
-//         // ✅ Store token and user email
-//         localStorage.setItem('userToken', JSON.stringify(response.data.token));
-//         localStorage.setItem('userEmail', email);  // Save email as proof of login
-//         alert(isRegister ? 'Registration successful!' : 'Login successful!');
-//         if (packageName && packagePrice) {
-//           navigate('/book-now', { state: { packageName, packagePrice } });
-//         } else {
-//           navigate('/shop');
-//         }
-//       } else {
-//         alert(response.data.message || 'Invalid credentials');
-//       }
-//     } catch (error) {
-//       console.error('❌ Error submitting form:', error);
-//       alert(error.response?.data?.message || 'An error occurred. Please try again.');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const handleLogout = () => {
-//     localStorage.removeItem('userToken');
-//     localStorage.removeItem('userEmail'); // also remove stored email
-//     alert('You have been logged out.');
-//     navigate('/explore');
-//   };
-
-//   return (
-//     <div className="container">
-//       <h1>{isRegister ? 'Create an Account' : 'Login to Your Account'}</h1>
-//       <form onSubmit={handleSubmit} className="form">
-//         {isRegister && (
-//           <div className="input-group">
-//             <label htmlFor="username">Username</label>
-//             <input
-//               type="text"
-//               id="username"
-//               value={username}
-//               onChange={(e) => setUsername(e.target.value)}
-//               required
-//             />
-//           </div>
-//         )}
-
-//         <div className="input-group">
-//           <label htmlFor="email">Email</label>
-//           <input
-//             type="email"
-//             id="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             required
-//           />
-//         </div>
-
-//         <div className="input-group">
-//           <label htmlFor="password">Password</label>
-//           <input
-//             type="password"
-//             id="password"
-//             value={password}
-//             onChange={(e) => {
-//               setPassword(e.target.value);
-//               setPasswordError('');
-//             }}
-//             required
-//           />
-//           {passwordError && <p className="error-message">{passwordError}</p>}
-//         </div>
-
-//         {isRegister && (
-//           <div className="input-group">
-//             <label htmlFor="confirmPassword">Confirm Password</label>
-//             <input
-//               type="password"
-//               id="confirmPassword"
-//               value={confirmPassword}
-//               onChange={(e) => setConfirmPassword(e.target.value)}
-//               required
-//             />
-//           </div>
-//         )}
-
-//         <button type="submit" className="submit-btn" disabled={loading}>
-//           {loading ? 'Processing...' : isRegister ? 'Register' : 'Login'}
-//         </button>
-//       </form>
-
-//       <div className="toggle-link">
-//         <span onClick={toggleForm}>
-//           {isRegister ? 'Already have an account? Login' : 'Need an account? Register'}
-//         </span>
-//       </div>
-
-//       <button className="logout-btn" onClick={handleLogout}>
-//         Logout
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default LoginRegister;
-
-
-
->>>>>>> b6ec3f2f378b2d23489f84e442b29b7c613ca30a
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -172,11 +8,8 @@ const API_URL = process.env.REACT_APP_API_URL?.trim() || 'https://traveller-17ng
 const LoginRegister = () => {
   const navigate = useNavigate();
   const location = useLocation();
-<<<<<<< HEAD
   const { packageName, packagePrice } = location.state || {};
 
-=======
->>>>>>> b6ec3f2f378b2d23489f84e442b29b7c613ca30a
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -219,34 +52,13 @@ const LoginRegister = () => {
         headers: { 'Content-Type': 'application/json' }
       });
 
-<<<<<<< HEAD
-      if (isRegister) {
-        alert('Registration successful! Please login to continue.');
-        setIsRegister(false); // switch to login form
-        setPassword('');
-        setConfirmPassword('');
-      } else if (response.data.token) {
-        // ✅ Store token and user info
-        localStorage.setItem('userToken', response.data.token);
-        localStorage.setItem('userEmail', response.data.email);
-        localStorage.setItem('username', response.data.username);
-
-        alert('Login successful!');
+      if (response.data.token) {
+        // ✅ Store token and user email
+        localStorage.setItem('userToken', JSON.stringify(response.data.token));
+        localStorage.setItem('userEmail', email);  // Save email as proof of login
+        alert(isRegister ? 'Registration successful!' : 'Login successful!');
         if (packageName && packagePrice) {
           navigate('/book-now', { state: { packageName, packagePrice } });
-=======
-      if (response.data.token) {
-        localStorage.setItem('userToken', JSON.stringify(response.data.token));
-        localStorage.setItem('userEmail', email);
-
-        alert(isRegister ? 'Registration successful!' : 'Login successful!');
-
-        // 🔁 Check for saved booking intent
-        const bookingIntent = JSON.parse(localStorage.getItem('bookingIntent'));
-        if (bookingIntent?.packageName && bookingIntent?.packagePrice) {
-          localStorage.removeItem('bookingIntent');
-          navigate('/book-now', { state: bookingIntent });
->>>>>>> b6ec3f2f378b2d23489f84e442b29b7c613ca30a
         } else {
           navigate('/shop');
         }
@@ -263,11 +75,7 @@ const LoginRegister = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('userToken');
-    localStorage.removeItem('userEmail');
-<<<<<<< HEAD
-    localStorage.removeItem('username');
-=======
->>>>>>> b6ec3f2f378b2d23489f84e442b29b7c613ca30a
+    localStorage.removeItem('userEmail'); // also remove stored email
     alert('You have been logged out.');
     navigate('/explore');
   };
@@ -347,7 +155,4 @@ const LoginRegister = () => {
 };
 
 export default LoginRegister;
-<<<<<<< HEAD
 
-=======
->>>>>>> b6ec3f2f378b2d23489f84e442b29b7c613ca30a
