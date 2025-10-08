@@ -68,6 +68,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<<<<<<< HEAD
 
 ## API configuration & CORS troubleshooting
 
@@ -88,3 +89,5 @@ npm start
 Development proxy: `package.json` includes a `proxy` field which will proxy API requests in development to the backend and can help avoid CORS while developing. Update or remove it as needed.
 
 If the deployed backend is returning CORS errors (no Access-Control-Allow-Origin header), you must update the deployed server's CORS allowlist or set an environment variable `ALLOWED_ORIGINS` including your frontend origin (for example `http://localhost:3001`).
+=======
+>>>>>>> b6ec3f2f378b2d23489f84e442b29b7c613ca30a

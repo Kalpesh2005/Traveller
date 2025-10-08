@@ -4,8 +4,12 @@
   height: 100vh;
   overflow: hidden;
 
+<<<<<<< HEAD
   /* Use a relative import so webpack/css-loader can resolve the asset from src/ */
   background-image: url('../assets/images/travel.jpg');
+=======
+  background-image: url('/images/travel.jpg'); /* ✅ Use public path */
+>>>>>>> b6ec3f2f378b2d23489f84e442b29b7c613ca30a
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -53,6 +57,7 @@
   margin-bottom: 40px;
 }
 
+<<<<<<< HEAD
 .hero-section {
   position: relative;
   width: 100%;
@@ -84,6 +89,8 @@
   transform: translateY(-2px);
 }
 
+=======
+>>>>>>> b6ec3f2f378b2d23489f84e442b29b7c613ca30a
 @media (max-width: 480px) {
   .hero-content h1 {
     font-size: 2rem;

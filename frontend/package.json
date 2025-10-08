@@ -20,7 +20,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+<<<<<<< HEAD
   "proxy": "https://traveller-17ng.onrender.com",
+=======
+>>>>>>> b6ec3f2f378b2d23489f84e442b29b7c613ca30a
   "eslintConfig": {
     "extends": [
       "react-app",
