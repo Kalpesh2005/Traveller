@@ -1,0 +1,124 @@
+/* News Container */
+.news-container {
+  padding: 20px;
+  max-width: 1700px;
+  margin: 0 auto;
+  background-image: url('../assets/images/travel.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  color: white;
+  box-sizing: border-box;
+}
+
+/* Header Styles */
+.news-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 0 15px;
+}
+
+.news-header h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.news-header p {
+  font-size: 1.25rem;
+}
+
+/* News List Styles */
+.news-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* News Item Styles */
+.news-item {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Hover Effect */
+.news-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Title Styles */
+.news-item h3 {
+  font-size: 1.75rem;
+  margin-bottom: 10px;
+  color: #ff6f61;
+}
+
+/* Date Styles */
+.news-date {
+  font-size: 1rem;
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+/* Description Styles */
+.news-item p {
+  font-size: 1rem;
+  color: #eee;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .news-item {
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .news-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .news-item {
+    max-width: 100%;
+  }
+
+  .news-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .news-header p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .news-header h1 {
+    font-size: 2rem;
+  }
+
+  .news-header p {
+    font-size: 1rem;
+  }
+
+  .news-item h3 {
+    font-size: 1.5rem;
+  }
+
+  .news-item p,
+  .news-date {
+    font-size: 0.95rem;
+  }
+}
